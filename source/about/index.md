@@ -5,3 +5,4 @@ type: "about"
 ---
 
 ## <center>一个苦苦挣扎的咸鱼罢辽</center>
+![](/uploads/image2.png "可爱的ED")
