@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[Hexo博客搭建过程]]></title>
-    <url>%2F2019%2F08%2F04%2F%E6%88%91%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%2F</url>
-    <content type="text"><![CDATA[第一章内容]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Hexo博客搭建过程</title>
+      <link href="/2019/08/04/%E6%88%91%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"/>
+      <url>/2019/08/04/%E6%88%91%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p><hr>]]></content>
+      
+      
       <categories>
-        <category>教程</category>
+          
+          <category> 教程 </category>
+          
       </categories>
-      <tags>
-        <tag>博客搭建</tag>
-        <tag>教程</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> 博客搭建 </tag>
+            
+            <tag> 教程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>

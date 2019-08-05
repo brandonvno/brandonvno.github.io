@@ -5,9 +5,9 @@
   <subtitle>人生如流水，借此刻下七秒外的记忆</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://brandonvno.github.io/"/>
   <updated>2019-08-04T15:23:35.889Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://brandonvno.github.io/</id>
   
   <author>
     <name>Brandon</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hexo博客搭建过程</title>
-    <link href="http://yoursite.com/2019/08/04/%E6%88%91%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"/>
-    <id>http://yoursite.com/2019/08/04/我的Hexo博客搭建过程/</id>
+    <link href="https://brandonvno.github.io/2019/08/04/%E6%88%91%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"/>
+    <id>https://brandonvno.github.io/2019/08/04/我的Hexo博客搭建过程/</id>
     <published>2019-08-04T12:01:38.000Z</published>
     <updated>2019-08-04T15:23:35.889Z</updated>
     
@@ -35,12 +35,12 @@
     
     </summary>
     
-      <category term="教程" scheme="http://yoursite.com/categories/%E6%95%99%E7%A8%8B/"/>
+      <category term="教程" scheme="https://brandonvno.github.io/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-      <category term="博客搭建" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+      <category term="博客搭建" scheme="https://brandonvno.github.io/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
-      <category term="教程" scheme="http://yoursite.com/tags/%E6%95%99%E7%A8%8B/"/>
+      <category term="教程" scheme="https://brandonvno.github.io/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
