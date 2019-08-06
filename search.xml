@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Unity用IL2Cpp打包64位版本aab文件，上线Google商店</title>
+      <link href="/2019/08/06/Unity%E7%94%A8IL2Cpp%E6%89%93%E5%8C%8564%E4%BD%8D%E7%89%88%E6%9C%AC%EF%BC%8C%E4%B8%8A%E7%BA%BFGoogle%E5%95%86%E5%BA%97/"/>
+      <url>/2019/08/06/Unity%E7%94%A8IL2Cpp%E6%89%93%E5%8C%8564%E4%BD%8D%E7%89%88%E6%9C%AC%EF%BC%8C%E4%B8%8A%E7%BA%BFGoogle%E5%95%86%E5%BA%97/</url>
+      
+        <content type="html"><![CDATA[<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本文转载自<a href="https://www.cnblogs.com/INSIST-NLJY/p/11044558.html" target="_blank" rel="noopener">https://www.cnblogs.com/INSIST-NLJY/p/11044558.html</a> 部分内容</p><p>安卓Apk上线Google要求64位且打包成Android Asset Bundle（即aab格式），以下是相关设置</p><blockquote><ol><li>在PlaySettings-&gt;other settings-&gt;Scriptiing Backend 选择IL2CPP（默认是Mono）, c++ Compiler Configuration 选择Release Target Architectures 里面的Arm64就可以勾选的了，勾选打包即可</li></ol></blockquote><blockquote><ol start="2"><li>Android Asset Bundle优化在Build Sttings 勾选Build App Bundle（Google Play）即可，打出的是aab包 打包运行成功。</li></ol></blockquote><blockquote><p>注：要是测试的话就用Mono打包吧，毕竟IL2CPP打包要慢上几倍</p></blockquote><hr><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.cnblogs.com/INSIST-NLJY/p/11044558.html" target="_blank" rel="noopener">https://www.cnblogs.com/INSIST-NLJY/p/11044558.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> 安卓 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Unity </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hexo博客搭建过程</title>
       <link href="/2019/08/04/%E6%88%91%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"/>
       <url>/2019/08/04/%E6%88%91%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</url>

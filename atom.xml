@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://brandonvno.github.io/"/>
-  <updated>2019-08-05T11:02:21.321Z</updated>
+  <updated>2019-08-06T12:19:41.084Z</updated>
   <id>https://brandonvno.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Unity用IL2Cpp打包64位版本aab文件，上线Google商店</title>
+    <link href="https://brandonvno.github.io/2019/08/06/Unity%E7%94%A8IL2Cpp%E6%89%93%E5%8C%8564%E4%BD%8D%E7%89%88%E6%9C%AC%EF%BC%8C%E4%B8%8A%E7%BA%BFGoogle%E5%95%86%E5%BA%97/"/>
+    <id>https://brandonvno.github.io/2019/08/06/Unity用IL2Cpp打包64位版本，上线Google商店/</id>
+    <published>2019-08-06T12:07:02.000Z</published>
+    <updated>2019-08-06T12:19:41.084Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;正文&quot;&gt;&lt;a href=&quot;#正文&quot; class=&quot;headerlink&quot; title=&quot;正文&quot;&gt;&lt;/a&gt;正文&lt;/h2&gt;&lt;p&gt;本文转载自&lt;a href=&quot;https://www.cnblogs.com/INSIST-NLJY/p/11044558.html&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Unity" scheme="https://brandonvno.github.io/categories/Unity/"/>
+    
+      <category term="安卓" scheme="https://brandonvno.github.io/categories/Unity/%E5%AE%89%E5%8D%93/"/>
+    
+    
+      <category term="Unity" scheme="https://brandonvno.github.io/tags/Unity/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo博客搭建过程</title>
