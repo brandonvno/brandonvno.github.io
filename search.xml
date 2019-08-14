@@ -4,6 +4,70 @@
   
     
     <entry>
+      <title>在markdown中使用数学公式</title>
+      <link href="/2019/08/14/%E5%9C%A8markdown%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/"/>
+      <url>/2019/08/14/%E5%9C%A8markdown%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本文介绍使用MathJax引擎在markdown中插入数学公式<br>参考链接：<a href="https://www.jianshu.com/p/054484d0892a" target="_blank" rel="noopener">https://www.jianshu.com/p/054484d0892a</a></p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先在markdown头部添加如下代码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure><p>然后到LaTeX网站上写出自己想要的公式，网址：<a href="http://latex.codecogs.com/eqneditor/editor.php" target="_blank" rel="noopener">http://latex.codecogs.com/eqneditor/editor.php</a></p><p>在markdown中有两种插入数学公式的方法：<br>行间公式：<code>$$公式$$</code><br>行内公式(两个\转义成一个\)：<code>\\(公式\\)</code></p><p>将LaTeX网站上生成的公式，放在上面两种方式对应的位置上即可。</p><p><strong>注意网站上生成的公式中如果使用了转义字符，比如原公式中使用了<code>\_</code>来转义成<code>_</code>，那么放到markdown中就需要改成<code>\\_</code>来转义成<code>_</code>。</strong></p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+          <category> markdown </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 教程 </tag>
+            
+            <tag> markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Tensorflow笔记</title>
+      <link href="/2019/08/13/Tensorflow%E7%AC%94%E8%AE%B0/"/>
+      <url>/2019/08/13/Tensorflow%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p> mooc 北京大学曹健老师课程：tensorflow笔记 要点记录</p><hr><h2 id="几个概念"><a href="#几个概念" class="headerlink" title="几个概念"></a>几个概念</h2><h3 id="基于TensorFlow的NN："><a href="#基于TensorFlow的NN：" class="headerlink" title="基于TensorFlow的NN："></a>基于TensorFlow的NN：</h3><p> 用张量表示数据，用计算图搭建神经网络，用回话执行计算图，优化线上的权重（参数），得到模型。</p><h3 id="张量-tensor-：多维数组-列表"><a href="#张量-tensor-：多维数组-列表" class="headerlink" title="张量(tensor)：多维数组(列表)"></a>张量(tensor)：多维数组(列表)</h3><p> 张量的维数称为<strong>阶</strong><br> 0阶张量称为标量(scalar)，如123<br> 1阶张量称为向量(vector)<br> 2阶张量称为矩阵(matrix)<br> 张量可以表示0阶到n阶数组</p><h3 id="计算图-Graph-："><a href="#计算图-Graph-：" class="headerlink" title="计算图(Graph)："></a>计算图(Graph)：</h3><p> 搭建神经网络的计算过程，只搭建，不计算</p><h3 id="会话-Session-："><a href="#会话-Session-：" class="headerlink" title="会话(Session)："></a>会话(Session)：</h3><p> 执行计算图中的节点运算<br> 用python实现计算的语法：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with tensorflow.Session() as sess:</span><br><span class="line">   print(sess.run(y))</span><br></pre></td></tr></table></figure></p><h3 id="参数：是指神经元线上的权重，用标量表示，随机赋给初值"><a href="#参数：是指神经元线上的权重，用标量表示，随机赋给初值" class="headerlink" title="参数：是指神经元线上的权重，用标量表示，随机赋给初值"></a>参数：是指神经元线上的权重，用标量表示，随机赋给初值</h3><p> 随机赋值举例：<br> <code>w = tf.Variable(tf.randon_normal([2,3], stddev = 2, mean = 0, seed = 1))</code><br> random_normal表示正态分布，stddev是标准差，mean是平均值， seed是随机种子。<br> 标准差，平均值，随机种子可不写，随机种子不写每次随机的值都不一样。</p><p> 另外几个常用方法：<br> <code>tf.truncated_normal()</code><br> 去掉过大偏离点的正态分布（随机出来的值与平均值差距超过两个标准差，则舍弃）<br> <code>tf.random_uniform()</code><br> 平均分布<br> <code>tf.zeros()</code><br> 生成全0数组，如tf.zeros([3,2], int32)<br> <code>tf.ones()</code><br> 生成全1数组，如tf.ones([3,2], int32)<br> <code>tf.fill()</code><br> 生成定值数组，如tf.fill([3,2], 6)<br> <code>tf.constant()</code><br> 生成指定数组</p><hr><h2 id="神经网络实现过程"><a href="#神经网络实现过程" class="headerlink" title="神经网络实现过程"></a>神经网络实现过程</h2><ol><li>准备数据集，提取特征，作为输入喂给神经网络（Neural Network，NN）</li><li>搭建NN结构，从输入到输出（先搭建计算图，再用会话执行）<br>（NN前向传播算法 -&gt; 计算输出）</li><li>大量特征数据喂给NN，迭代优化NN参数<br>（NN反向传播算法 -&gt; 优化参数训练模型）</li><li>使用训练好的模型预测和分类</li></ol><hr><h2 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h2><p> 示例：<br> <img src="/uploads/tensorflow_notes/image1.png" alt="&quot;示例&quot;" title="前向传播讲解示例"><br> 推导：<br> <img src="/uploads/tensorflow_notes/image2.png" alt="&quot;推导&quot;" title="前向传播示例推导"><br> W矩阵，前面有m个节点，后面有n个节点，则为mXn阶矩阵。<br> 输入不计入神经网络层，a层是第一个计算层，也是神经网络的第一层，这里是1X3阶矩阵</p><p> 说明：</p><ul><li><p>变量初始化、计算图节点运算都要使用会话（with结构）实现<br><code>with tf.Session() as sess</code></p></li><li><p>变量初始化<br><code>init_op = tf.global_variables_initializer()</code><br><code>sess.run(init_op)</code></p></li><li><p>计算图节点运算: sess.run()中写入带运算节点<br><code>sess.run(y)</code></p></li><li><p>给神经网络喂数据：用tf.placeholder占位，在sess.run()中使用feed_dict喂数据<br>喂一组数据：<br><code>x = tf.placeholder(tf.float32, shape=(1,2))</code><br><code>sess.run(y, feed_dict={x:[[0.5, 0.6]]}</code></p><p>喂多组数据：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = tf.placeholder(tf.float32, shape=(None, 2))</span><br><span class="line">sess.run(y, feed_dict=&#123;x:[[0.1, 0.2], [0.2, 0.3], [0.3, 0.4]]&#125;)</span><br></pre></td></tr></table></figure><p>shape第二个参数是模型的特征数，比如此模型有重量和体积两个特征，故为2。</p></li></ul><p>代码示例1：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> #coding:utf-8</span><br><span class="line">#两层简单神经网络</span><br><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">#定义输入和参数</span><br><span class="line">x = tf.constant([[0.7, 0.5]])</span><br><span class="line">w1 = tf.Variable(tf.random_normal([2,3], stddev = 1, seed=1))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([3,1], stddev = 1, seed = 1))</span><br><span class="line"></span><br><span class="line">#定义前向传播过程</span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line">#用会话计算结果</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(&quot;result y in this file is:\n&quot;, sess.run(y))</span><br></pre></td></tr></table></figure></p><p>代码示例2：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line">#两层简单神经网络</span><br><span class="line"></span><br><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">#定义输入和参数</span><br><span class="line">#用placeholder实现输入定义</span><br><span class="line">x = tf.placeholder(tf.float32, shape=(1,2))</span><br><span class="line">w1 = tf.Variable(tf.random_normal([2, 3], stddev=1, seed = 1))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([3, 1], stddev=1, seed = 1))</span><br><span class="line"></span><br><span class="line">#定义前向传播过程</span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line">#用会话计算结果</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(&quot;y in this file is:\n&quot;, sess.run(y, feed_dict = &#123;x:[[0.7, 0.5]]&#125;))</span><br></pre></td></tr></table></figure><p>代码示例3：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line">#两层简单神经网络(喂多组数据)</span><br><span class="line"></span><br><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">#定义输入和参数</span><br><span class="line">#用placeholder定义输入(sess.run()喂多组数据)</span><br><span class="line">x = tf.placeholder(tf.float32, shape=(None, 2))</span><br><span class="line">w1 = tf.Variable(tf.random_normal([2,3], stddev=1, seed=1))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([3,1], stddev=1, seed=1))</span><br><span class="line"></span><br><span class="line">#定义前向传播过程</span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line">#调用会话计算结果</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    init_op = tf.global_variables_initializer();</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(&quot;y in this file is:\n&quot;, sess.run(y, feed_dict = &#123;x:[[0.7, 0.5],[0.2, 0.3],[0.3, 0.4], [0.4, 0.5]]&#125;))</span><br><span class="line">    print(&quot;w1:\n&quot;, sess.run(w1))</span><br><span class="line">    print(&quot;w1:\n&quot;, sess.run(w2))</span><br></pre></td></tr></table></figure><hr><h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p> 反向传播是一个不断训练模型参数，在所有参数上使用梯度下降，使NN模型在训练数据上的损失函数最小</p><p> 损失函数(loss)：预测值(y)与已知答案(y_)的差距。 均方误差MSE是计算损失函数的一种方法</p><p> 均方误差MSE：MSE(y_, y) = \(\frac{\sum_{i=1}^{n}(y-y\_)^{2}}{n}\)</p><p> 均方误差计算损失函数代码：<br> <code>loss = tf.reduce_mean(tf.square(y-y_))</code><br> 其中y和y_都是张量</p><p> 反向传播的训练方法：以减小loss值为优化目标<br> 三种训练方法：<br> <code>train_step = tf.train.GiadientDescentOptimizer(learning_rate).minimize(loss)</code><br> <code>train_step = tr.train.MomentumOptimizer(learning_rate, momentum).minimize(loss)</code><br> <code>train_step = tr.train.AdamOptimizer(learning_rate),minimize(loss)</code><br> learning_rate是指学习率，它决定每次更新的幅度，一开始可以选一个较小值，比如0.001</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 人工智能 </category>
+          
+          <category> 机器学习 </category>
+          
+          <category> 深度学习 </category>
+          
+          <category> Tensorflow </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 人工智能 </tag>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> Tensorflow </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Unity用IL2Cpp打包64位版本aab文件，上线Google商店</title>
       <link href="/2019/08/06/Unity%E7%94%A8IL2Cpp%E6%89%93%E5%8C%8564%E4%BD%8D%E7%89%88%E6%9C%AC%EF%BC%8C%E4%B8%8A%E7%BA%BFGoogle%E5%95%86%E5%BA%97/"/>
       <url>/2019/08/06/Unity%E7%94%A8IL2Cpp%E6%89%93%E5%8C%8564%E4%BD%8D%E7%89%88%E6%9C%AC%EF%BC%8C%E4%B8%8A%E7%BA%BFGoogle%E5%95%86%E5%BA%97/</url>
@@ -42,14 +106,16 @@
           
           <category> 教程 </category>
           
+          <category> 博客搭建 </category>
+          
       </categories>
       
       
         <tags>
             
-            <tag> 博客搭建 </tag>
-            
             <tag> 教程 </tag>
+            
+            <tag> 博客搭建 </tag>
             
         </tags>
       

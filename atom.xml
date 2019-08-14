@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Brandon电台</title>
   
-  <subtitle>人生如流水，借此刻下七秒外的记忆</subtitle>
+  <subtitle>人生如流水，借此以刻下七秒外的记忆</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://brandonvno.github.io/"/>
-  <updated>2019-08-06T12:26:21.118Z</updated>
+  <updated>2019-08-14T08:53:34.369Z</updated>
   <id>https://brandonvno.github.io/</id>
   
   <author>
@@ -17,11 +17,80 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>在markdown中使用数学公式</title>
+    <link href="https://brandonvno.github.io/2019/08/14/%E5%9C%A8markdown%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/"/>
+    <id>https://brandonvno.github.io/2019/08/14/在markdown中使用数学公式/</id>
+    <published>2019-08-14T08:23:24.000Z</published>
+    <updated>2019-08-14T08:53:34.369Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;本文介绍使用MathJax引擎在markdown中插入数学公式&lt;br&gt;参考链接：&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="教程" scheme="https://brandonvno.github.io/categories/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="markdown" scheme="https://brandonvno.github.io/categories/%E6%95%99%E7%A8%8B/markdown/"/>
+    
+    
+      <category term="教程" scheme="https://brandonvno.github.io/tags/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="markdown" scheme="https://brandonvno.github.io/tags/markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow笔记</title>
+    <link href="https://brandonvno.github.io/2019/08/13/Tensorflow%E7%AC%94%E8%AE%B0/"/>
+    <id>https://brandonvno.github.io/2019/08/13/Tensorflow笔记/</id>
+    <published>2019-08-13T10:47:21.000Z</published>
+    <updated>2019-08-14T09:33:22.697Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&quot;&gt;&lt;/script&gt;
+
+
+&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="人工智能" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="机器学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="深度学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Tensorflow" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Tensorflow/"/>
+    
+    
+      <category term="人工智能" scheme="https://brandonvno.github.io/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="深度学习" scheme="https://brandonvno.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Tensorflow" scheme="https://brandonvno.github.io/tags/Tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Unity用IL2Cpp打包64位版本aab文件，上线Google商店</title>
     <link href="https://brandonvno.github.io/2019/08/06/Unity%E7%94%A8IL2Cpp%E6%89%93%E5%8C%8564%E4%BD%8D%E7%89%88%E6%9C%AC%EF%BC%8C%E4%B8%8A%E7%BA%BFGoogle%E5%95%86%E5%BA%97/"/>
     <id>https://brandonvno.github.io/2019/08/06/Unity用IL2Cpp打包64位版本，上线Google商店/</id>
     <published>2019-08-06T12:07:02.000Z</published>
-    <updated>2019-08-06T12:26:21.118Z</updated>
+    <updated>2019-08-13T10:47:51.579Z</updated>
     
     <summary type="html">
     
@@ -49,7 +118,7 @@
     <link href="https://brandonvno.github.io/2019/08/04/%E6%88%91%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"/>
     <id>https://brandonvno.github.io/2019/08/04/我的Hexo博客搭建过程/</id>
     <published>2019-08-04T12:01:38.000Z</published>
-    <updated>2019-08-05T11:02:21.321Z</updated>
+    <updated>2019-08-06T12:29:46.799Z</updated>
     
     <summary type="html">
     
@@ -65,10 +134,12 @@
     
       <category term="教程" scheme="https://brandonvno.github.io/categories/%E6%95%99%E7%A8%8B/"/>
     
+      <category term="博客搭建" scheme="https://brandonvno.github.io/categories/%E6%95%99%E7%A8%8B/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
-      <category term="博客搭建" scheme="https://brandonvno.github.io/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
       <category term="教程" scheme="https://brandonvno.github.io/tags/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="博客搭建" scheme="https://brandonvno.github.io/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
   </entry>
   
