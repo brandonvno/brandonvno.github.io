@@ -8,7 +8,7 @@
       <link href="/2019/08/15/Tensorflow%E7%AC%94%E8%AE%B0%E4%BA%8C/"/>
       <url>/2019/08/15/Tensorflow%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
       
-        <content type="html"><![CDATA[<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p> mooc 北京大学曹健老师课程：tensorflow笔记 第四节 神经网络优化 要点记录</p><hr><h2 id="模型、激活函数、NN复杂度"><a href="#模型、激活函数、NN复杂度" class="headerlink" title="模型、激活函数、NN复杂度"></a>模型、激活函数、NN复杂度</h2><p> 以下是本文使用的模型<br><img src="/uploads/tensorflow_notes/image3.png" alt="&quot;模型说明&quot;" title="模型说明"></p><p> 三个常用的激活函数<br><img src="/uploads/tensorflow_notes/image4.png" alt="&quot;激活函数&quot;" title="激活函数"></p><p> NN复杂度多用NN层数和NN参数的个数表示<br> 层数 = 隐藏层的个数+1个输出层（下图层数为2）<br> 总参数 = 总W+总b（下图总参数为：3<em>4+4 + 4</em>2+2 = 26）<br><img src="/uploads/tensorflow_notes/image5.png" alt="&quot;NN复杂度辅图&quot;" title="NN复杂度辅图"></p><hr>]]></content>
+        <content type="html"><![CDATA[<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p> mooc 北京大学曹健老师课程：tensorflow笔记 第四节 神经网络优化 要点记录</p><hr><h2 id="模型、激活函数、NN复杂度"><a href="#模型、激活函数、NN复杂度" class="headerlink" title="模型、激活函数、NN复杂度"></a>模型、激活函数、NN复杂度</h2><p> 常用模型<br><img src="/uploads/tensorflow_notes/image3.png" alt="&quot;模型说明&quot;" title="模型说明"></p><p> 三个常用的激活函数<br><img src="/uploads/tensorflow_notes/image4.png" alt="&quot;激活函数&quot;" title="激活函数"></p><p> NN复杂度多用NN层数和NN参数的个数表示<br> 层数 = 隐藏层的个数+1个输出层（下图层数为2）<br> 总参数 = 总W+总b（下图总参数为：3<em>4+4 + 4</em>2+2 = 26）<br><img src="/uploads/tensorflow_notes/image5.png" alt="&quot;NN复杂度辅图&quot;" title="NN复杂度辅图"></p><hr><h2 id="损失函数-loss-：预测值-y-与已知答案-y-的差距"><a href="#损失函数-loss-：预测值-y-与已知答案-y-的差距" class="headerlink" title="损失函数(loss)：预测值(y)与已知答案(y_)的差距"></a>损失函数(loss)：预测值(y)与已知答案(y_)的差距</h2><p> NN优化目标：loss最小。</p><p> 三种loss计算：均方误差mse(mean squared error)、 自定义、 交叉熵ce(Cross Entropy)</p><p> 均方误差MSE：MSE(y_, y) = \(\frac{\sum_{i=1}^{n}(y-y\_)^{2}}{n}\)</p><p> 均方误差计算损失函数代码：<br> <code>loss = tf.reduce_mean(tf.square(y-y_))</code></p><p> 下面举了一个栗子来说明损失函数：<br> 预测酸奶日销量y。x1、x2是影响日销量的因素。<br> 建模前，应预先采集的数据有：每日x1、x2和销量y_（即已知答案，最佳情况：产量=销量）<br> 拟造数据集X，Y_：y_= x1 + x2  噪声：-0.05 ~ +0.05  拟合可以预测销量的函数。</p><hr>]]></content>
       
       
       <categories>
@@ -18,8 +18,6 @@
           <category> 机器学习 </category>
           
           <category> 深度学习 </category>
-          
-          <category> Tensorflow </category>
           
       </categories>
       
@@ -82,8 +80,6 @@
           <category> 机器学习 </category>
           
           <category> 深度学习 </category>
-          
-          <category> Tensorflow </category>
           
       </categories>
       

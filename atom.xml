@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Brandon电台</title>
   
-  <subtitle>人生如流水，借此以刻下七秒外的记忆</subtitle>
+  <subtitle>好记性不如烂笔头</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://brandonvno.github.io/"/>
-  <updated>2019-08-15T07:01:43.560Z</updated>
+  <updated>2019-08-15T07:45:37.703Z</updated>
   <id>https://brandonvno.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://brandonvno.github.io/2019/08/15/Tensorflow%E7%AC%94%E8%AE%B0%E4%BA%8C/"/>
     <id>https://brandonvno.github.io/2019/08/15/Tensorflow笔记二/</id>
     <published>2019-08-15T03:01:03.000Z</published>
-    <updated>2019-08-15T07:01:43.560Z</updated>
+    <updated>2019-08-15T07:45:37.703Z</updated>
     
     <summary type="html">
     
@@ -43,8 +43,6 @@
       <category term="机器学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="深度学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="Tensorflow" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Tensorflow/"/>
     
     
       <category term="人工智能" scheme="https://brandonvno.github.io/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
@@ -90,7 +88,7 @@
     <link href="https://brandonvno.github.io/2019/08/13/Tensorflow%E7%AC%94%E8%AE%B0%E4%B8%80/"/>
     <id>https://brandonvno.github.io/2019/08/13/Tensorflow笔记一/</id>
     <published>2019-08-13T10:47:21.000Z</published>
-    <updated>2019-08-15T02:55:23.796Z</updated>
+    <updated>2019-08-15T07:14:17.270Z</updated>
     
     <summary type="html">
     
@@ -112,8 +110,6 @@
       <category term="机器学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="深度学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="Tensorflow" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Tensorflow/"/>
     
     
       <category term="人工智能" scheme="https://brandonvno.github.io/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
@@ -157,7 +153,7 @@
     <link href="https://brandonvno.github.io/2019/08/04/%E6%88%91%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"/>
     <id>https://brandonvno.github.io/2019/08/04/我的Hexo博客搭建过程/</id>
     <published>2019-08-04T12:01:38.000Z</published>
-    <updated>2019-08-15T07:04:32.479Z</updated>
+    <updated>2019-08-15T07:05:58.885Z</updated>
     
     <summary type="html">
     

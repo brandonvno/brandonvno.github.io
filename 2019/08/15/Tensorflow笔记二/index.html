@@ -55,21 +55,21 @@
   };
 </script>
 
-  <meta name="description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第四节 神经网络优化 要点记录  模型、激活函数、NN复杂度 以下是本文使用的模型  三个常用的激活函数  NN复杂度多用NN层数和NN参数的个数表示 层数 = 隐藏层的个数+1个输出层（下图层数为2） 总参数 = 总W+总b（下图总参数为：34+4 + 42+2 = 26）">
+  <meta name="description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第四节 神经网络优化 要点记录  模型、激活函数、NN复杂度 常用模型  三个常用的激活函数  NN复杂度多用NN层数和NN参数的个数表示 层数 = 隐藏层的个数+1个输出层（下图层数为2） 总参数 = 总W+总b（下图总参数为：34+4 + 42+2 = 26）  损失函数(loss)：预测值(y)与已知答案(y_)的差距 N">
 <meta name="keywords" content="人工智能,深度学习,Tensorflow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tensorflow笔记二">
 <meta property="og:url" content="https://brandonvno.github.io/2019/08/15/Tensorflow笔记二/index.html">
 <meta property="og:site_name" content="Brandon电台">
-<meta property="og:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第四节 神经网络优化 要点记录  模型、激活函数、NN复杂度 以下是本文使用的模型  三个常用的激活函数  NN复杂度多用NN层数和NN参数的个数表示 层数 = 隐藏层的个数+1个输出层（下图层数为2） 总参数 = 总W+总b（下图总参数为：34+4 + 42+2 = 26）">
+<meta property="og:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第四节 神经网络优化 要点记录  模型、激活函数、NN复杂度 常用模型  三个常用的激活函数  NN复杂度多用NN层数和NN参数的个数表示 层数 = 隐藏层的个数+1个输出层（下图层数为2） 总参数 = 总W+总b（下图总参数为：34+4 + 42+2 = 26）  损失函数(loss)：预测值(y)与已知答案(y_)的差距 N">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image3.png">
 <meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image4.png">
 <meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image5.png">
-<meta property="og:updated_time" content="2019-08-15T07:01:43.560Z">
+<meta property="og:updated_time" content="2019-08-15T07:45:37.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tensorflow笔记二">
-<meta name="twitter:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第四节 神经网络优化 要点记录  模型、激活函数、NN复杂度 以下是本文使用的模型  三个常用的激活函数  NN复杂度多用NN层数和NN参数的个数表示 层数 = 隐藏层的个数+1个输出层（下图层数为2） 总参数 = 总W+总b（下图总参数为：34+4 + 42+2 = 26）">
+<meta name="twitter:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第四节 神经网络优化 要点记录  模型、激活函数、NN复杂度 常用模型  三个常用的激活函数  NN复杂度多用NN层数和NN参数的个数表示 层数 = 隐藏层的个数+1个输出层（下图层数为2） 总参数 = 总W+总b（下图总参数为：34+4 + 42+2 = 26）  损失函数(loss)：预测值(y)与已知答案(y_)的差距 N">
 <meta name="twitter:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image3.png">
   <link rel="alternate" href="/atom.xml" title="Brandon电台" type="application/atom+xml">
   <link rel="canonical" href="https://brandonvno.github.io/2019/08/15/Tensorflow笔记二/">
@@ -148,7 +148,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">人生如流水，借此以刻下七秒外的记忆</p>
+        <p class="site-subtitle">好记性不如烂笔头</p>
       
   </div>
 
@@ -306,7 +306,7 @@
                 
               
 
-              <time title="创建时间：2019-08-15 11:01:03 / 修改时间：15:01:43" itemprop="dateCreated datePublished" datetime="2019-08-15T11:01:03+08:00">2019-08-15</time>
+              <time title="创建时间：2019-08-15 11:01:03 / 修改时间：15:45:37" itemprop="dateCreated datePublished" datetime="2019-08-15T11:01:03+08:00">2019-08-15</time>
             </span>
           
             
@@ -339,13 +339,6 @@
 
                 
                 
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/机器学习/深度学习/Tensorflow/" itemprop="url" rel="index"><span itemprop="name">Tensorflow</span></a></span>
-
-                
-                
               
             </span>
           
@@ -375,9 +368,15 @@
 
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p> mooc 北京大学曹健老师课程：tensorflow笔记 第四节 神经网络优化 要点记录</p>
 <hr>
-<h2 id="模型、激活函数、NN复杂度"><a href="#模型、激活函数、NN复杂度" class="headerlink" title="模型、激活函数、NN复杂度"></a>模型、激活函数、NN复杂度</h2><p> 以下是本文使用的模型<br><img src="/uploads/tensorflow_notes/image3.png" alt="&quot;模型说明&quot;" title="模型说明"></p>
+<h2 id="模型、激活函数、NN复杂度"><a href="#模型、激活函数、NN复杂度" class="headerlink" title="模型、激活函数、NN复杂度"></a>模型、激活函数、NN复杂度</h2><p> 常用模型<br><img src="/uploads/tensorflow_notes/image3.png" alt="&quot;模型说明&quot;" title="模型说明"></p>
 <p> 三个常用的激活函数<br><img src="/uploads/tensorflow_notes/image4.png" alt="&quot;激活函数&quot;" title="激活函数"></p>
 <p> NN复杂度多用NN层数和NN参数的个数表示<br> 层数 = 隐藏层的个数+1个输出层（下图层数为2）<br> 总参数 = 总W+总b（下图总参数为：3<em>4+4 + 4</em>2+2 = 26）<br><img src="/uploads/tensorflow_notes/image5.png" alt="&quot;NN复杂度辅图&quot;" title="NN复杂度辅图"></p>
+<hr>
+<h2 id="损失函数-loss-：预测值-y-与已知答案-y-的差距"><a href="#损失函数-loss-：预测值-y-与已知答案-y-的差距" class="headerlink" title="损失函数(loss)：预测值(y)与已知答案(y_)的差距"></a>损失函数(loss)：预测值(y)与已知答案(y_)的差距</h2><p> NN优化目标：loss最小。</p>
+<p> 三种loss计算：均方误差mse(mean squared error)、 自定义、 交叉熵ce(Cross Entropy)</p>
+<p> 均方误差MSE：MSE(y_, y) = \(\frac{\sum_{i=1}^{n}(y-y\_)^{2}}{n}\)</p>
+<p> 均方误差计算损失函数代码：<br> <code>loss = tf.reduce_mean(tf.square(y-y_))</code></p>
+<p> 下面举了一个栗子来说明损失函数：<br> 预测酸奶日销量y。x1、x2是影响日销量的因素。<br> 建模前，应预先采集的数据有：每日x1、x2和销量y_（即已知答案，最佳情况：产量=销量）<br> 拟造数据集X，Y_：y_= x1 + x2  噪声：-0.05 ~ +0.05  拟合可以预测销量的函数。</p>
 <hr>
 
     </div>
@@ -517,7 +516,7 @@
         
           
         
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -597,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型、激活函数、NN复杂度"><span class="nav-number">2.</span> <span class="nav-text">模型、激活函数、NN复杂度</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型、激活函数、NN复杂度"><span class="nav-number">2.</span> <span class="nav-text">模型、激活函数、NN复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#损失函数-loss-：预测值-y-与已知答案-y-的差距"><span class="nav-number">3.</span> <span class="nav-text">损失函数(loss)：预测值(y)与已知答案(y_)的差距</span></a></li></ol></div>
             
 
           </div>
