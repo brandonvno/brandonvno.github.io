@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第五、六节  全连接网络基础和实践 要点记录  前置准备内容MNIST 数据集：提供6w张 28 * 28像素点的0-9手写数字图片和标签，用于训练提供1w张 28 * 28像素点的0-9手写数字图片和标签，用于测试 图片标签以一维数组形式给出，每个元素表示对应分类出现的概率。比如6：[0,0,0,0,0,0,1,0,0,0]">
+<meta name="keywords" content="人工智能,深度学习,Tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow笔记三">
+<meta property="og:url" content="https://brandonvno.github.io/2019/08/20/Tensorflow笔记三/index.html">
+<meta property="og:site_name" content="Brandon电台">
+<meta property="og:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第五、六节  全连接网络基础和实践 要点记录  前置准备内容MNIST 数据集：提供6w张 28 * 28像素点的0-9手写数字图片和标签，用于训练提供1w张 28 * 28像素点的0-9手写数字图片和标签，用于测试 图片标签以一维数组形式给出，每个元素表示对应分类出现的概率。比如6：[0,0,0,0,0,0,1,0,0,0]">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image12.png">
+<meta property="og:updated_time" content="2019-08-22T02:26:40.415Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorflow笔记三">
+<meta name="twitter:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第五、六节  全连接网络基础和实践 要点记录  前置准备内容MNIST 数据集：提供6w张 28 * 28像素点的0-9手写数字图片和标签，用于训练提供1w张 28 * 28像素点的0-9手写数字图片和标签，用于测试 图片标签以一维数组形式给出，每个元素表示对应分类出现的概率。比如6：[0,0,0,0,0,0,1,0,0,0]">
+<meta name="twitter:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image12.png">
+  <link rel="alternate" href="/atom.xml" title="Brandon电台" type="application/atom+xml">
+  <link rel="canonical" href="https://brandonvno.github.io/2019/08/20/Tensorflow笔记三/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Tensorflow笔记三 | Brandon电台</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ac76ceae447ceffbc8058af5886fbe8d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Brandon电台</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">好记性不如烂笔头</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://brandonvno.github.io/2019/08/20/Tensorflow笔记三/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Brandon">
+      <meta itemprop="description" content="编程、经验、感悟、读后感的一点记录和分享">
+      <meta itemprop="image" content="/uploads/Avata1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Brandon电台">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Tensorflow笔记三
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-20 15:32:34" itemprop="dateCreated datePublished" datetime="2019-08-20T15:32:34+08:00">2019-08-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-22 10:26:40" itemprop="dateModified" datetime="2019-08-22T10:26:40+08:00">2019-08-22</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/" itemprop="url" rel="index"><span itemprop="name">人工智能</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/机器学习/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon"
+              >
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p> mooc 北京大学曹健老师课程：tensorflow笔记 第五、六节  全连接网络基础和实践 要点记录</p>
+<hr>
+<h2 id="前置准备内容"><a href="#前置准备内容" class="headerlink" title="前置准备内容"></a>前置准备内容</h2><h3 id="MNIST-数据集："><a href="#MNIST-数据集：" class="headerlink" title="MNIST 数据集："></a>MNIST 数据集：</h3><p>提供6w张 28 * 28像素点的0-9手写数字图片和标签，用于训练<br>提供1w张 28 * 28像素点的0-9手写数字图片和标签，用于测试<br><img src="/uploads/tensorflow_notes/image12.png" alt></p>
+<p>图片标签以一维数组形式给出，每个元素表示对应分类出现的概率。<br>比如6：[0,0,0,0,0,0,1,0,0,0]</p>
+<p>导入数据集模块<br><code>from tensorflow.examples.tutorials.mnist import imput_data</code></p>
+<p>加载数据集（数据集不存在则下载，分为train数据集和test数据集），指定数据存取路径，指定以读热码的形式存取：<br><code>mnist = input_data.red_data_sets(&#39;./data/&#39;, one_hot = True)</code><br>注：如果运行报错，说明是源不可达，换一个源即可，具体方法：<br>打开mnist.py文件，参考路径如下：<br>miniconda3/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py<br>定位到第33行左右，找到SOURCE_URL，将其值改为：<br><code>&#39;http://yann.lecun.com/exdb/mnist/&#39;</code><br>然后重新运行以上命令即可</p>
+<p>获取子集样本数<br><code>mnist.train.num_examples</code><br><code>mnist.validation.num_examples</code><br><code>mnist.test.num_examples</code></p>
+<p>获取标签和数据<br><code>mnist.train.labels[0]</code><br><code>mnist.train.images[0]</code></p>
+<p>随机抽取BATCH_SIZE个数据，喂入神经网络并接收结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BATCH_SIZE = 200</span><br><span class="line">xs, ys = mnist.train.next_batch(BATCH_SIZE)</span><br><span class="line">print(&quot;xs shape:&quot;, xs.shape)</span><br><span class="line">print(&quot;ys shape:&quot;, ys.shape)</span><br></pre></td></tr></table></figure>
+
+<h3 id="几个会用到的函数："><a href="#几个会用到的函数：" class="headerlink" title="几个会用到的函数："></a>几个会用到的函数：</h3><p><code>tf.get_collection(&quot;&quot;)</code><br>从集合中取全部变量，生成一个列表</p>
+<p><code>tf.add_n([])</code><br>列表内对应元素相加</p>
+<p><code>tf.cast(x, dtype)</code><br>把x转化为dtype类型</p>
+<p><code>tf.argmax(x, axis)</code><br>返回最大值所在的索引号，如tf.argmax([1,0,0], 1) 返回0</p>
+<p><code>os.path.join(&quot;home&quot;, &quot;name&quot;)</code><br>返回home/name</p>
+<p>字符串.split()<br>按指定拆分符对字符串切片，分为分割后的列表<br>如：<code>&#39;./model/minst_model-1001&#39;.split(&#39;/&#39;)[-1].split(&#39;-&#39;)[-1]</code> 返回1001</p>
+<p><code>with tf.Graph().as_default() as g:</code><br>其内定义的节点在计算图g中</p>
+<h3 id="模型的保存和加载"><a href="#模型的保存和加载" class="headerlink" title="模型的保存和加载"></a>模型的保存和加载</h3><p>保存模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">saver = tf.train.Saver()</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    for i in range(STEPS):</span><br><span class="line">        if i % 轮数 == 0:</span><br><span class="line">            saver.save(sess, os.path.join(MODEL_SAVE_PATH, MODEL_NAME), global_step = global_step)</span><br></pre></td></tr></table></figure>
+
+<p>实例化可还原滑动平均值的saver：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ema = tf.train.ExponentialMovingAverage(滑动平均基数)</span><br><span class="line">ema_restore = ema.variables_to_restore()</span><br><span class="line">saver = tf.train.Saver(ema_restore)</span><br></pre></td></tr></table></figure>
+
+<p>说明：这样所有参数通过saver对象在会话中被加载时都会被初始化为滑动平均值.</p>
+<p>加载模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">with tf.Session() as sess:</span><br><span class="line">    # 加载ckpt，如果saver()设置了滑动平均值，在这里将每个参数设置为其对应的滑动平均值</span><br><span class="line">    ckpt = tf.train.get_chekpoint_state(存储路径)</span><br><span class="line">    # 判断ckpt是否成功加载并有模型</span><br><span class="line">    if ckpt and ckpt.model_checkpoint_path:</span><br><span class="line">        #恢复模型到当前会话</span><br><span class="line">        saver.restore(sess, ckpt.model_checkpoint_path)</span><br></pre></td></tr></table></figure>
+
+<p>准确率计算方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_, 1))</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br></pre></td></tr></table></figure>
+
+<p>说明：这里的y，是一个BATCH * n的二维数组，BATCH是一轮训练喂入的数据个数，n是训练的轮数。 argmax()第二个参数为1，是指只在第一个维度寻找最大值的索引号。取得的结果是在所有n个长度为BATCH的一维数组中，最大的一个数组的索引号。<br>accuracy计算得所有数据准确率的平均值，就是NN在这组数据上的准确率。</p>
+<hr>
+<h2 id="MNIST获得训练过程中的准确率，代码示例："><a href="#MNIST获得训练过程中的准确率，代码示例：" class="headerlink" title="MNIST获得训练过程中的准确率，代码示例："></a>MNIST获得训练过程中的准确率，代码示例：</h2><p>mnist_forward.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line"># 每张图分辨率是28×28,共784个像素点</span><br><span class="line">INPUT_NODE = 784</span><br><span class="line">#输出是0-9这十个数字的概率</span><br><span class="line">OUTPUT_NODE = 10</span><br><span class="line">#隐藏层节点个数</span><br><span class="line">LAYER1_NODE = 500</span><br><span class="line"></span><br><span class="line">def get_weight(shape, regularizer):</span><br><span class="line">    #利用正态分布产生随机值，标准差和均值需要自己设置</span><br><span class="line">    w = tf.Variable(tf.truncated_normal(shape, stddev=0.1))</span><br><span class="line">    #正则化</span><br><span class="line">    if regularizer != None:</span><br><span class="line">        tf.add_to_collection(&apos;losses&apos;, tf.contrib.layers.l2_regularizer(regularizer)(w))</span><br><span class="line">    return w</span><br><span class="line"></span><br><span class="line">def get_bias(shape):</span><br><span class="line">    b = tf.Variable(tf.zeros(shape))</span><br><span class="line">    return b</span><br><span class="line"></span><br><span class="line">def forward(x, regularizer):</span><br><span class="line">    w1 = get_weight([INPUT_NODE, LAYER1_NODE], regularizer)</span><br><span class="line">    b1 = get_bias([LAYER1_NODE])</span><br><span class="line">    y1 = tf.nn.relu(tf.matmul(x, w1) +b1)</span><br><span class="line"></span><br><span class="line">    w2 = get_weight([LAYER1_NODE, OUTPUT_NODE], regularizer)</span><br><span class="line">    b2 = get_bias([OUTPUT_NODE])</span><br><span class="line">    y = tf.matmul(y1, w2) + b2</span><br><span class="line">    return y</span><br></pre></td></tr></table></figure>
+
+<p>mnist_backward.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line">import tensorflow as tf</span><br><span class="line">from tensorflow.examples.tutorials.mnist import input_data</span><br><span class="line">import mnist_forward as fw</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">BATCH_SIZE = 200</span><br><span class="line">LEARNING_RATE_BASE = 0.1</span><br><span class="line">LEARNING_RATE_DECAY = 0.99</span><br><span class="line">REGULARIZER = 0.0001</span><br><span class="line">STEPS = 50000</span><br><span class="line">MOVING_AVERAGE_DECAY = 0.99</span><br><span class="line">MODEL_SAVE_PATH = &quot;./model/&quot;</span><br><span class="line">MODEL_NAME = &quot;mnist_model&quot;</span><br><span class="line"></span><br><span class="line">def backward(mnist):</span><br><span class="line">    x = tf.placeholder(tf.float32, [None, fw.INPUT_NODE])</span><br><span class="line">    y_ = tf.placeholder(tf.float32, [None, fw.OUTPUT_NODE])</span><br><span class="line">    y = fw.forward(x, REGULARIZER)</span><br><span class="line">    global_step = tf.Variable(0, trainable=False)</span><br><span class="line"></span><br><span class="line">    ce = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=tf.argmax(y_, 1))</span><br><span class="line">    cem = tf.reduce_mean(ce)</span><br><span class="line">    loss = cem + tf.add_n(tf.get_collection(&apos;losses&apos;))</span><br><span class="line"></span><br><span class="line">    learning_rate = tf.train.exponential_decay(</span><br><span class="line">        LEARNING_RATE_BASE,</span><br><span class="line">        global_step,</span><br><span class="line">        mnist.train.num_examples / BATCH_SIZE,</span><br><span class="line">        LEARNING_RATE_DECAY,</span><br><span class="line">        staircase=True    </span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step=global_step)</span><br><span class="line"></span><br><span class="line">    ema = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, global_step)</span><br><span class="line">    ema_op = ema.apply(tf.trainable_variables())</span><br><span class="line">    with tf.control_dependencies([train_step, ema_op]):</span><br><span class="line">        train_op = tf.no_op(name=&apos;train&apos;)</span><br><span class="line">    </span><br><span class="line">    saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line">    with tf.Session() as sess:</span><br><span class="line">        init_op = tf.global_variables_initializer()</span><br><span class="line">        sess.run(init_op)</span><br><span class="line"></span><br><span class="line">        for i in range(STEPS):</span><br><span class="line">            xs, ys = mnist.train.next_batch(BATCH_SIZE)</span><br><span class="line">            _, loss_value, step = sess.run([train_op, loss, global_step], feed_dict = &#123;x:xs, y_:ys&#125;)</span><br><span class="line">            if i % 1000 == 0:</span><br><span class="line">                print(&quot;After %d training steps, loss on training batch is%g.&quot;%(step, loss_value))</span><br><span class="line">                saver.save(sess, os.path.join(MODEL_SAVE_PATH, MODEL_NAME), global_step=global_step)</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    mnist = input_data.read_data_sets(&quot;./data/&quot;, one_hot=True)</span><br><span class="line">    backward(mnist)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>mnist_test.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line">import time</span><br><span class="line">import tensorflow as tf</span><br><span class="line">from tensorflow.examples.tutorials.mnist import input_data</span><br><span class="line">import mnist_forward as fw</span><br><span class="line">import mnist_backward as bw</span><br><span class="line">TEST_INTERVAL_SECS = 5</span><br><span class="line"></span><br><span class="line">def test(mnist):</span><br><span class="line">    with tf.Graph().as_default() as g:</span><br><span class="line">        x = tf.placeholder(tf.float32, [None, fw.INPUT_NODE])</span><br><span class="line">        y_ = tf.placeholder(tf.float32, [None, fw.OUTPUT_NODE])</span><br><span class="line">        y = fw.forward(x, None)</span><br><span class="line"></span><br><span class="line">        ema = tf.train.ExponentialMovingAverage(bw.MOVING_AVERAGE_DECAY)</span><br><span class="line">        ema_restore = ema.variables_to_restore()</span><br><span class="line">        saver = tf.train.Saver(ema_restore)</span><br><span class="line"></span><br><span class="line">        correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))</span><br><span class="line">        accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line"></span><br><span class="line">        while True:</span><br><span class="line">            with tf.Session() as sess:</span><br><span class="line">                ckpt = tf.train.get_checkpoint_state(bw.MODEL_SAVE_PATH)</span><br><span class="line">                if ckpt and ckpt.model_checkpoint_path:</span><br><span class="line">                    saver.restore(sess, ckpt.model_checkpoint_path)</span><br><span class="line">                    global_step = ckpt.model_checkpoint_path.split(&apos;/&apos;)[-1].split(&apos;-&apos;)[-1]</span><br><span class="line">                    accuracy_score = sess.run(accuracy, feed_dict=&#123;x:mnist.test.images, y_:mnist.test.labels&#125;)</span><br><span class="line">                    print(&quot;After %s training step, test accuracy = %g&quot;%(global_step, accuracy_score))</span><br><span class="line">                else:</span><br><span class="line">                    print(&quot;No checkpoint file found&quot;)</span><br><span class="line">                time.sleep(TEST_INTERVAL_SECS)</span><br><span class="line">def main():</span><br><span class="line">    mnist = input_data.read_data_sets(&quot;./data/&quot;, one_hot=True)</span><br><span class="line">    test(mnist)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>运行mnist_backward.py，然后同时运行mnist_test.py<br>可以查看loss值的变化和准确率的变化</p>
+<p>在mnist_backward.py46行处，初始化所有变量之后增加断点续训代码，即可实现断点续训：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#新增代码：从保存的数据中加载训练结果，实现断点续练</span><br><span class="line">ckpt = tf.train.get_checkpoint_state(MODEL_SAVE_PATH)</span><br><span class="line">if ckpt and ckpt.model_checkpoint_path:</span><br><span class="line">    saver.restore(sess, ckpt.model_checkpoint_path)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>要让程序实现特定应用，我们需要解决以下两个问题：<br>如何实现对输入的图片做出正确的预测？<br>如何制作数据集？</p>
+<p>在上一个例程中，我们用三个文件实现了前向传播、反向传播和测试准确率三个功能。<br>下面这段代码在上面例程三个.py文件的基础上，实现输入图片，输出预测值。</p>
+<p>mnist_app.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line"></span><br><span class="line">import tensorflow as tf</span><br><span class="line">import numpy as np</span><br><span class="line">from PIL import Image</span><br><span class="line">import mnist_backward as bw</span><br><span class="line">import mnist_forward as fw</span><br><span class="line"></span><br><span class="line">def restore_model(testPicArr):</span><br><span class="line">    #默认创建一个图，在该图中进行以下操作</span><br><span class="line">    with tf.Graph().as_default() as tg:</span><br><span class="line">        x = tf.placeholder(tf.float32, [None, fw.INPUT_NODE])</span><br><span class="line">        y = fw.forward(x, None)</span><br><span class="line">        preValue = tf.argmax(y, 1)</span><br><span class="line"></span><br><span class="line">        variable_averages = tf.train.ExponentialMovingAverage(bw.MOVING_AVERAGE_DECAY)</span><br><span class="line">        variables_to_restore = variable_averages.variables_to_restore()</span><br><span class="line">        saver = tf.train.Saver(variables_to_restore)</span><br><span class="line"></span><br><span class="line">        with tf.Session() as sess:</span><br><span class="line">            ckpt = tf.train.get_checkpoint_state(bw.MODEL_SAVE_PATH)</span><br><span class="line"></span><br><span class="line">            if ckpt and ckpt.model_checkpoint_path:</span><br><span class="line">                saver.restore(sess, ckpt.model_checkpoint_path)</span><br><span class="line"></span><br><span class="line">                preValue = sess.run(preValue, feed_dict=&#123;x:testPicArr&#125;)</span><br><span class="line">                return preValue</span><br><span class="line">            else:</span><br><span class="line">                print(&quot;No checkpoint file found&quot;)</span><br><span class="line">                return -1</span><br><span class="line"></span><br><span class="line">def pre_pic(picName):</span><br><span class="line">    img = Image.open(picName)</span><br><span class="line">    # 用消除锯齿的方法重新给图片设定大小</span><br><span class="line">    reIm = img.resize((28,28), Image.ANTIALIAS)</span><br><span class="line">    # 把原始图片转化成灰度图，并以矩阵的形式存到变量里</span><br><span class="line">    im_arr = np.array(reIm.convert(&apos;L&apos;))</span><br><span class="line">    #模型要求黑底白字且每个像素点在0-1取值，输入是白底黑字取值0-255，所以需要进行反色和降值处理</span><br><span class="line">    threshold = 50</span><br><span class="line">    for i in range(28):</span><br><span class="line">        for j in range(28):</span><br><span class="line">            im_arr[i][j] = 255- im_arr[i][j]</span><br><span class="line">            if(im_arr[i][j]&lt;threshold):</span><br><span class="line">                im_arr[i][j] = 0</span><br><span class="line">            else:</span><br><span class="line">                im_arr[i][j] = 255</span><br><span class="line">    nm_arr = im_arr.reshape([1, 784])</span><br><span class="line">    nm_arr = nm_arr.astype(np.float32)</span><br><span class="line">    img_ready = np.multiply(nm_arr, 1.0/255.0)</span><br><span class="line"></span><br><span class="line">    return img_ready</span><br><span class="line"></span><br><span class="line">def application():</span><br><span class="line">    testNum = input(&quot;input the num of test pictures:&quot;)</span><br><span class="line">    for i in range(int(testNum)):</span><br><span class="line">        testPic = input(&quot;the path of test picture:&quot;)</span><br><span class="line">        testPicArr = pre_pic(testPic)</span><br><span class="line">        preValue = restore_model(testPicArr)</span><br><span class="line">        print(&quot;The prediction number is: &quot;, preValue)</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    application()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>分享是一种快乐，请随意</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Brandon 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/人工智能/" rel="tag"># 人工智能</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/15/Tensorflow笔记二/" rel="next" title="Tensorflow笔记二">
+                <i class="fa fa-chevron-left"></i> Tensorflow笔记二
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/Avata1.png"
+      alt="Brandon">
+  <p class="site-author-name" itemprop="name">Brandon</p>
+  <div class="site-description motion-element" itemprop="description">编程、经验、感悟、读后感的一点记录和分享</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/brandonvno" title="GitHub &rarr; https://github.com/brandonvno" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.taptap.com/app/63844" title="https://www.taptap.com/app/63844" rel="noopener" target="_blank">行界：重构</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置准备内容"><span class="nav-number">2.</span> <span class="nav-text">前置准备内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MNIST-数据集："><span class="nav-number">2.1.</span> <span class="nav-text">MNIST 数据集：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几个会用到的函数："><span class="nav-number">2.2.</span> <span class="nav-text">几个会用到的函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型的保存和加载"><span class="nav-number">2.3.</span> <span class="nav-text">模型的保存和加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MNIST获得训练过程中的准确率，代码示例："><span class="nav-number">3.</span> <span class="nav-text">MNIST获得训练过程中的准确率，代码示例：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践"><span class="nav-number">4.</span> <span class="nav-text">实践</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Brandon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '37854a8b3b718ee36cda',
+    clientSecret: '2c841db056b110a0454e394cd9993cb4026e1c13',
+    repo: 'brandonvno.github.io',
+    owner: 'brandonvno',
+    admin: ['brandonvno'],
+    id: md5(location.pathname),
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":200,"height":400,"position":"right","hOffset":0,"vOffset":-20},"react":{"opacityDefault":0.5,"opacityOnHover":0.5,"opacity":0.7},"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
