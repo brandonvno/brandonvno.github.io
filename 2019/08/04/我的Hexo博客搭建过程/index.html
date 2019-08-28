@@ -64,7 +64,7 @@
 <meta property="og:description" content="一、概述此教程记录了我在Win10上搭建Hexo博客的整个流程，主题是使用了Next，奉上文档以及参考链接：Hexo文档Next文档  二、 基础准备1. 准备一个Github账号：0v0 2. Git安装与配置： Git安装自不必多说，简单提一下Git用SSH登录Github：  首先打开CMD，设置你的账号和邮箱，输入：git config --global user.name &amp;quot;y">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://brandonvno.github.io/uploads/image1.jpg">
-<meta property="og:updated_time" content="2019-08-15T07:05:58.885Z">
+<meta property="og:updated_time" content="2019-08-28T13:45:06.435Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客搭建过程">
 <meta name="twitter:description" content="一、概述此教程记录了我在Win10上搭建Hexo博客的整个流程，主题是使用了Next，奉上文档以及参考链接：Hexo文档Next文档  二、 基础准备1. 准备一个Github账号：0v0 2. Git安装与配置： Git安装自不必多说，简单提一下Git用SSH登录Github：  首先打开CMD，设置你的账号和邮箱，输入：git config --global user.name &amp;quot;y">
@@ -317,7 +317,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-15 15:05:58" itemprop="dateModified" datetime="2019-08-15T15:05:58+08:00">2019-08-15</time>
+                <time title="修改时间：2019-08-28 21:45:06" itemprop="dateModified" datetime="2019-08-28T21:45:06+08:00">2019-08-28</time>
               </span>
             
           
@@ -448,7 +448,7 @@
 </ul>
 <h3 id="2-Next主题样式切换"><a href="#2-Next主题样式切换" class="headerlink" title="2. Next主题样式切换"></a>2. Next主题样式切换</h3><p> 打开主题配置文件，搜索scheme settings，这里有四种样式，其中三个被注释掉了，选择你喜欢的样式即可。</p>
 <h3 id="3-设置语言"><a href="#3-设置语言" class="headerlink" title="3. 设置语言"></a>3. 设置语言</h3><p> 打开next文件夹下面的language，找到对应的语言，打开全局配置文件，搜索language，将你想设置的语言文件名填上即可。</p>
-<h3 id="4-菜单栏导航设置"><a href="#4-菜单栏导航设置" class="headerlink" title="4. 菜单栏导航设置"></a>4. 菜单栏导航设置</h3><p> 打开主题配置文件，搜索Menu Setting，默认情况下是只有主页和归档栏没有被注释，选择你想要在导航栏显示的内容将注释去掉即可。<br> 同事你也可以打开上一步提到的语言文件，打开即可看到对应的翻译。<br> 这样配置之后，只是打开了这个选项，而选项链接对应的页面还需要手动创建。下面介绍了标签和分类页面的创建方式。</p>
+<h3 id="4-菜单栏导航设置"><a href="#4-菜单栏导航设置" class="headerlink" title="4. 菜单栏导航设置"></a>4. 菜单栏导航设置</h3><p> 打开主题配置文件，搜索Menu Setting，默认情况下是只有主页和归档栏没有被注释，选择你想要在导航栏显示的内容将注释去掉即可。<br> 同时你也可以打开上一步提到的语言文件，打开即可看到对应的翻译。<br> 这样配置之后，只是打开了这个选项，而选项链接对应的页面还需要手动创建。下面介绍了标签和分类页面的创建方式。</p>
 <h3 id="5-添加标签页面"><a href="#5-添加标签页面" class="headerlink" title="5. 添加标签页面"></a>5. 添加标签页面</h3><ul>
 <li><p>CMD定位到Blog文件夹下，输入以下命令创建标签页面<br><code>hexo new page tags</code></p>
 </li>
@@ -463,7 +463,7 @@
 <h3 id="6-添加分类页面"><a href="#6-添加分类页面" class="headerlink" title="6. 添加分类页面"></a>6. 添加分类页面</h3><ul>
 <li><p>CMD定位到Blog文件夹下，输入以下命令创建分类页面<br><code>hexo new page categories</code></p>
 </li>
-<li><p>打开Blog/source/tags/index.md<br>在data下面添加如下内容<br><code>type: &quot;categories&quot;</code><br>确保第4步开启了分类选项，启动本地服务器后，点击菜单栏分类选项即可跳转到分类页。</p>
+<li><p>打开Blog/source/categories/index.md<br>在data下面添加如下内容<br><code>type: &quot;categories&quot;</code><br>确保第4步开启了分类选项，启动本地服务器后，点击菜单栏分类选项即可跳转到分类页。</p>
 </li>
 <li><p>在博客文章的Font-matter部分添加自定义分类，比如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">categories: </span><br><span class="line"> - Testing</span><br></pre></td></tr></table></figure>
