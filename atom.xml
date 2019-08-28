@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://brandonvno.github.io/"/>
-  <updated>2019-08-22T02:26:40.415Z</updated>
+  <updated>2019-08-28T13:31:03.194Z</updated>
   <id>https://brandonvno.github.io/</id>
   
   <author>
@@ -17,11 +17,85 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Tensorflow笔记五</title>
+    <link href="https://brandonvno.github.io/2019/08/27/Tensorflow%E7%AC%94%E8%AE%B0%E4%BA%94/"/>
+    <id>https://brandonvno.github.io/2019/08/27/Tensorflow笔记五/</id>
+    <published>2019-08-27T12:40:19.000Z</published>
+    <updated>2019-08-28T13:31:03.194Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&quot;&gt;&lt;/script&gt;
+
+
+&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="人工智能" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="机器学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="深度学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="人工智能" scheme="https://brandonvno.github.io/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="深度学习" scheme="https://brandonvno.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Tensorflow" scheme="https://brandonvno.github.io/tags/Tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow笔记四</title>
+    <link href="https://brandonvno.github.io/2019/08/23/Tensorflow%E7%AC%94%E8%AE%B0%E5%9B%9B/"/>
+    <id>https://brandonvno.github.io/2019/08/23/Tensorflow笔记四/</id>
+    <published>2019-08-23T08:02:25.000Z</published>
+    <updated>2019-08-27T12:41:32.568Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&quot;&gt;&lt;/script&gt;
+
+
+&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="人工智能" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="机器学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="深度学习" scheme="https://brandonvno.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="人工智能" scheme="https://brandonvno.github.io/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="深度学习" scheme="https://brandonvno.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Tensorflow" scheme="https://brandonvno.github.io/tags/Tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Tensorflow笔记三</title>
     <link href="https://brandonvno.github.io/2019/08/20/Tensorflow%E7%AC%94%E8%AE%B0%E4%B8%89/"/>
     <id>https://brandonvno.github.io/2019/08/20/Tensorflow笔记三/</id>
     <published>2019-08-20T07:32:34.000Z</published>
-    <updated>2019-08-22T02:26:40.415Z</updated>
+    <updated>2019-08-27T01:55:54.534Z</updated>
     
     <summary type="html">
     
@@ -58,7 +132,7 @@
     <link href="https://brandonvno.github.io/2019/08/15/Tensorflow%E7%AC%94%E8%AE%B0%E4%BA%8C/"/>
     <id>https://brandonvno.github.io/2019/08/15/Tensorflow笔记二/</id>
     <published>2019-08-15T03:01:03.000Z</published>
-    <updated>2019-08-21T06:51:28.741Z</updated>
+    <updated>2019-08-27T01:56:03.645Z</updated>
     
     <summary type="html">
     
@@ -125,7 +199,7 @@
     <link href="https://brandonvno.github.io/2019/08/13/Tensorflow%E7%AC%94%E8%AE%B0%E4%B8%80/"/>
     <id>https://brandonvno.github.io/2019/08/13/Tensorflow笔记一/</id>
     <published>2019-08-13T10:47:21.000Z</published>
-    <updated>2019-08-15T07:14:17.270Z</updated>
+    <updated>2019-08-27T01:56:11.446Z</updated>
     
     <summary type="html">
     

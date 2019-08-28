@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第八节 卷积神经网络 要点记录 版本：python(3.6.6)， tensorflow(1.3.0)  VGG net实现图片识别(千分类)相关资料依据论文：《VERY DEEP CONVOLUTIONAL NETWORKS FORLARGE-SCALE IMAGE RECOGNITION》 论文下载地址：https://no">
+<meta name="keywords" content="人工智能,深度学习,Tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow笔记五">
+<meta property="og:url" content="https://brandonvno.github.io/2019/08/27/Tensorflow笔记五/index.html">
+<meta property="og:site_name" content="Brandon电台">
+<meta property="og:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第八节 卷积神经网络 要点记录 版本：python(3.6.6)， tensorflow(1.3.0)  VGG net实现图片识别(千分类)相关资料依据论文：《VERY DEEP CONVOLUTIONAL NETWORKS FORLARGE-SCALE IMAGE RECOGNITION》 论文下载地址：https://no">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-28T13:31:03.194Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorflow笔记五">
+<meta name="twitter:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第八节 卷积神经网络 要点记录 版本：python(3.6.6)， tensorflow(1.3.0)  VGG net实现图片识别(千分类)相关资料依据论文：《VERY DEEP CONVOLUTIONAL NETWORKS FORLARGE-SCALE IMAGE RECOGNITION》 论文下载地址：https://no">
+  <link rel="alternate" href="/atom.xml" title="Brandon电台" type="application/atom+xml">
+  <link rel="canonical" href="https://brandonvno.github.io/2019/08/27/Tensorflow笔记五/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Tensorflow笔记五 | Brandon电台</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ac76ceae447ceffbc8058af5886fbe8d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Brandon电台</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">好记性不如烂笔头</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://brandonvno.github.io/2019/08/27/Tensorflow笔记五/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Brandon">
+      <meta itemprop="description" content="编程、经验、感悟、读后感的一点记录和分享">
+      <meta itemprop="image" content="/uploads/Avata1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Brandon电台">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Tensorflow笔记五
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-27 20:40:19" itemprop="dateCreated datePublished" datetime="2019-08-27T20:40:19+08:00">2019-08-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-28 21:31:03" itemprop="dateModified" datetime="2019-08-28T21:31:03+08:00">2019-08-28</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/" itemprop="url" rel="index"><span itemprop="name">人工智能</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/机器学习/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon"
+              >
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p> mooc 北京大学曹健老师课程：tensorflow笔记 第八节 卷积神经网络 要点记录<br> 版本：python(3.6.6)， tensorflow(1.3.0)</p>
+<hr>
+<h2 id="VGG-net实现图片识别-千分类"><a href="#VGG-net实现图片识别-千分类" class="headerlink" title="VGG net实现图片识别(千分类)"></a>VGG net实现图片识别(千分类)</h2><h3 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h3><p>依据论文：《VERY DEEP CONVOLUTIONAL NETWORKS FOR<br>LARGE-SCALE IMAGE RECOGNITION》</p>
+<p>论文下载地址：<br><a href="https://nos.netease.com/edu-lesson-pdfsrc/A259F94F8F75436E482FE1C12B6C177F-1525019670967?Signature=s48UpJM5l4ytnZXNrY9CT8zW6nFN1EfE3C53P61XViA%3D&amp;Expires=1566898884&amp;NOSAccessKeyId=7ba71f968e4340f1ab476ecb300190fa&amp;download=VGGNET%E8%AE%BA%E6%96%87.pdf" target="_blank" rel="noopener">https://nos.netease.com/edu-lesson-pdfsrc/A259F94F8F75436E482FE1C12B6C177F-1525019670967?Signature=s48UpJM5l4ytnZXNrY9CT8zW6nFN1EfE3C53P61XViA%3D&amp;Expires=1566898884&amp;NOSAccessKeyId=7ba71f968e4340f1ab476ecb300190fa&amp;download=VGGNET%E8%AE%BA%E6%96%87.pdf</a></p>
+<p>代码相关文档下载地址：<br><a href="https://nos.netease.com/edu-lesson-pdfsrc/991E299B808DBA0CC42F2323E3A589DE-1525019763996?Signature=iI0%2FwD%2F1MPq0FB%2Be6HNm6B3MJga45rgmjvAFF7EPkm0%3D&amp;Expires=1566898929&amp;NOSAccessKeyId=7ba71f968e4340f1ab476ecb300190fa&amp;download=%E5%8A%A9%E6%95%99%E7%9A%84Tensorflow%E7%AC%94%E8%AE%B08.pdf" target="_blank" rel="noopener">https://nos.netease.com/edu-lesson-pdfsrc/991E299B808DBA0CC42F2323E3A589DE-1525019763996?Signature=iI0%2FwD%2F1MPq0FB%2Be6HNm6B3MJga45rgmjvAFF7EPkm0%3D&amp;Expires=1566898929&amp;NOSAccessKeyId=7ba71f968e4340f1ab476ecb300190fa&amp;download=%E5%8A%A9%E6%95%99%E7%9A%84Tensorflow%E7%AC%94%E8%AE%B08.pdf</a></p>
+<h3 id="一些方法的说明"><a href="#一些方法的说明" class="headerlink" title="一些方法的说明"></a>一些方法的说明</h3><p>tensorflow文档：<br><a href="https://tensorflow.google.cn/" target="_blank" rel="noopener">https://tensorflow.google.cn/</a><br><a href="https://www.tensorflow.org/" target="_blank" rel="noopener">https://www.tensorflow.org/</a></p>
+<p>os.getcwd(): 返回当前目录</p>
+<p>os.path.join(a,b,c,…)：拼出整个路径<br>如：vgg16_path = os.path.join(os.getcwd(), “vgg16.npy”)可获得npy文件的完整路径</p>
+<p>np.save(“name.npy”, 数组)：将某数组写入”name.npy”文件(未压缩的二进制形式，文件默认的扩展名是.npy)。</p>
+<p>variable = np.load(“name.npy”, encoding = “”).item():将name.npy文件读出给varibale变量。<br>encoding可以填”latinl”, “ASCII”, “bytes”，不填默认”ASCII”</p>
+<p>.item():遍历(键值对)。</p>
+<p>np.argsort(列表)： 对列表从小到大排序，返回列表索引值</p>
+<p>tf.shape(a)和a.get_shape()比较：<br>    相同点：都可以得到tensor a的尺寸<br>    不同点：tf.shape()中a的数据类型可以是tensor，list，array；而a.get_shape()中a的数据类型只能是tensor，且返回的是一个元组(tuple)</p>
+<p>tf.nn.bias_add(乘加和，bias): 把bias加到乘加和上。</p>
+<p>tf.reshape(tensor,[n行，m列]):改变tensor的形状<br>tf.reshape(tensor,[-1, m列])：-1表示行跟随m列自动计算</p>
+<p>tf.split(切谁, 怎么切, 在哪个维度切):<br>dimension: 输入张量的哪一个维度，如果是0就表示对第0维进行切割<br>num_split: 切割的数量，切割完每一份是一个列表<br>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># &apos;value&apos; is a tensor with shape [5, 30]</span><br><span class="line"># Split &apos;value&apos; into 3 tensors with sizes [4, 15, 11] along dimension 1</span><br><span class="line">split0, split1, split2 = tf.split(value, [4, 15, 11], 1)</span><br><span class="line">tf.shape(split0) ==&gt; [5, 4]</span><br><span class="line">tf.shape(split1) ==&gt; [5, 15]</span><br><span class="line">tf.shape(split2) ==&gt; [5, 11]</span><br><span class="line"># Split &apos;value&apos; into 3 tensors along dimension 1</span><br><span class="line">split0, split1, split2 = tf.split(value, num_or_size_splits=3, axis=1)</span><br><span class="line">tf.shape(split0) ==&gt; [5, 10]</span><br></pre></td></tr></table></figure>
+
+<p>red, greed, blue = tf.split(输入, 3, 3)<br>TF卷积的输入shape为：[batch, 长，宽，深]<br>个人理解：第0维度为batch个图片，第1维度为图片的每行，第2维度为图片的每列，第3维度为图片的每个rgb像素</p>
+<p>tf.concat(concat_dim, values):<br>沿着某一个维度连接tensor<br>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t1 = [[1, 2, 3], [4, 5, 6]]</span><br><span class="line">t2 = [[7, 8, 9], [10, 11, 12]]</span><br><span class="line">tf.concat(0, [t1, t2]) ==&gt; [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11,</span><br><span class="line">12]]</span><br><span class="line">tf.concat(1, [t1, t2]) ==&gt; [[1, 2, 3, 7, 8, 9], [4, 5, 6, 10, 11, 12]]</span><br></pre></td></tr></table></figure>
+
+<p>如果想沿着 r tensor 一新轴连结打包, , 那么可以：<br><code>tf.concat(axis, [tf.expand_dims(t, axis) for t in tensors])</code><br>等同于<br><code>tf.pack(tensors, axis=axis)</code></p>
+<p>fig = plt.figure(“名字”)<br>实例化图对象</p>
+<p>ax = fig.add_subplot(m n k)<br>将画布分隔成m行n列，图像画在从左到右，从上到下的第k块</p>
+<p>img =io.imread(图片路径)<br>读入图片</p>
+<p>ax = fig.add_subplot(x,y,z)<br>x,y,z分别是包含几行，包含几列，当前是第几个</p>
+<p>ax.bar(bar的个数,bar的值,每个bar的名字, bar宽度, bar颜色)<br>可以画出柱状图</p>
+<p>ax.set_ylabel(字符串)<br>设置y轴的名字，如果字符串是中文，有时候需要在字符串前加u</p>
+<p>ax.set_title(字符串)<br>设置子图名字</p>
+<p>ax.text(文字x坐标，文字y坐标， 文字内容， ha = ‘center’, va = ‘bottom’, fontsize = 7)<br>ha水平对齐方式：参数可以为center、right、left<br>va垂直对齐方式：参数可以为center、top、bottom</p>
+<p>ax = imshow(图)<br>画出子图</p>
+<hr>
+<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><ul>
+<li><p>app.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line">import numpy as np</span><br><span class="line">#Linux服务器没有GUI的情况下使用matplotlib绘图，必须置于pyplot之前</span><br><span class="line">import matplotlib</span><br><span class="line">#matplotlib.use(&apos;Agg&apos;)</span><br><span class="line">import tensorflow as tf</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">import vgg16</span><br><span class="line">import utils</span><br><span class="line">from Nclasses import labels</span><br><span class="line"></span><br><span class="line">img_path = input(&apos;Input the path and image name:&apos;)</span><br><span class="line">#调用load_image()函数，对待测试的图像做一些预处理操作</span><br><span class="line">img_ready = utils.load_image(img_path)</span><br><span class="line"></span><br><span class="line">#定义一个figure画图窗口，并制定窗口的名称，也可以设置窗口的大小</span><br><span class="line">fig = plt.figure(u&quot;Top-5 预测结果&quot;)</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    #定义一个维度为[1,224,224,3]，类型为float32的tensor占位符</span><br><span class="line">    x = tf.placeholder(tf.float32, [1,224,224,3])</span><br><span class="line">    #实例化对象</span><br><span class="line">    vgg = vgg16.Vgg16()</span><br><span class="line">    #调用类的成员方法forward()，并传入待测试图像，即前向传播过程</span><br><span class="line">    vgg.forward(x)</span><br><span class="line">    #将一个batch的数据喂入网络，得到网络的预测输出</span><br><span class="line">    probability = sess.run(vgg.prob, feed_dict = &#123;x:img_ready&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    top5 = np.argsort(probability[0])[-1:-6:-1]</span><br><span class="line">    print(&quot;top5:&quot;, top5)</span><br><span class="line"></span><br><span class="line">    #定义两个list--对应的概率值和实际标签(zebra)</span><br><span class="line">    values = []</span><br><span class="line">    bar_label = []</span><br><span class="line"></span><br><span class="line">    #枚举上面取出的5个索引值</span><br><span class="line">    for n,i in enumerate(top5):</span><br><span class="line">        print(&quot;n:&quot;, n)</span><br><span class="line">        print(&quot;i:&quot;, i)</span><br><span class="line">        values.append(probability[0][i])</span><br><span class="line">        bar_label.append(labels[i])</span><br><span class="line">        #打印属于某个类别的概率</span><br><span class="line">        print(i, &quot;:&quot;, labels[i], &quot;---&quot;, utils.percent(probability[0][i]))</span><br><span class="line">    </span><br><span class="line">    #将画布划分为1行1列，并把下图放入其中</span><br><span class="line">    ax = fig.add_subplot(111)</span><br><span class="line">    #bar()函数绘制柱状图，参数range(len(values))是柱子的下标，values表示柱高的列表(也就是五个预测概率值)</span><br><span class="line">    #tick_label是每个柱子上显示的标签（实际对应的标签）， width是柱子的宽度，fc是柱子的颜色</span><br><span class="line">    ax.bar(range(len(values)), values, tick_label = bar_label, width = 0.5, fc = &apos;g&apos;)</span><br><span class="line">    #设置横轴标签</span><br><span class="line">    ax.set_ylabel(u&apos;probability&apos;)</span><br><span class="line">    #添加标题</span><br><span class="line">    ax.set_title(u&apos;Top-5&apos;)</span><br><span class="line"></span><br><span class="line">    for a,b in zip(range(len(values)), values):</span><br><span class="line">        #在每个柱子的顶端添加对应的预测概率值，a,b表示坐标，b+0.0005表示要把文本信息放置在高于每个柱子顶端0.0005的位置。</span><br><span class="line">        #center是表示文本位于顶端水平方向上的中间位置，bottom是将文本水平放置在柱子顶端垂直放心上的地段位置，fontsize是字号</span><br><span class="line">        ax.text(a, b+0.0005, utils.percent(b), ha = &apos;center&apos;, va = &apos;bottom&apos;, fontsize = 7)</span><br><span class="line"></span><br><span class="line">    #保存图片</span><br><span class="line">    plt.savefig(&apos;./result.jpg&apos;)</span><br><span class="line">    #弹窗展示图像，在服务器上需要将下面这行代码注释掉</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vgg16.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line">#!usr/bin/python</span><br><span class="line">#coding:utf-8</span><br><span class="line">import inspect</span><br><span class="line">import os</span><br><span class="line">import numpy as np</span><br><span class="line">import tensorflow as tf</span><br><span class="line">import time</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">#样本RGB的平均值</span><br><span class="line">VGG_MEAN = [103.939, 155.779, 123.68]</span><br><span class="line"></span><br><span class="line">class Vgg16():</span><br><span class="line">    def __init__(self, vgg16_path = None):</span><br><span class="line">        if vgg16_path is None:</span><br><span class="line">            #os.getcwd() 返回当前工作目录</span><br><span class="line">            vgg16_path = os.path.join(os.getcwd(), &quot;vgg16.npy&quot;)</span><br><span class="line">            print(vgg16_path)</span><br><span class="line">            #遍历键值对，导入模型参数</span><br><span class="line">            self.data_dict = np.load(vgg16_path, encoding = &apos;latin1&apos;).item()</span><br><span class="line">        #遍历data_dict中的每个键</span><br><span class="line">        for x in self.data_dict:</span><br><span class="line">            print(x)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def conv_layer(self, x, name):</span><br><span class="line">        #定义卷积运算</span><br><span class="line"></span><br><span class="line">        #根据命名空间找到对应的卷积层的网络参数</span><br><span class="line">        with tf.variable_scope(name):</span><br><span class="line">            #读取该层的卷积核</span><br><span class="line">            w = self.get_conv_filter(name)</span><br><span class="line">            #卷积计算</span><br><span class="line">            conv = tf.nn.conv2d(x,w,[1,1,1,1], padding = &quot;SAME&quot;)</span><br><span class="line">            conv_biases = self.get_bias(name)</span><br><span class="line">            #加偏置，激活</span><br><span class="line">            result = tf.nn.relu(tf.nn.bias_add(conv, conv_biases))</span><br><span class="line">            return result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def get_conv_filter(self, name):</span><br><span class="line">        #根据命名空间name从参数字典中读取对应的卷积核</span><br><span class="line">        return tf.constant(self.data_dict[name][0], name = &apos;filter&apos;)</span><br><span class="line"></span><br><span class="line">    def get_bias(self, name):</span><br><span class="line">        #根据命名空间name从参数字典中渠道对应的偏置项</span><br><span class="line">        return tf.constant(self.data_dict[name][1], name = &apos;biases&apos;)</span><br><span class="line"></span><br><span class="line">    def max_pool_2x2(self, x, name):</span><br><span class="line">        #定义最大池化操作</span><br><span class="line">        return tf.nn.max_pool(x, ksize=[1,2,2,1], strides=[1,2,2,1], padding = &apos;SAME&apos;, name = name)</span><br><span class="line"></span><br><span class="line">    def get_fc_weight(self, name):</span><br><span class="line">        return tf.constant(self.data_dict[name][0], name = &quot;weights&quot;)</span><br><span class="line"></span><br><span class="line">    def fc_layer(self, x, name):</span><br><span class="line">        #定义全连接的前向传播计算</span><br><span class="line">        with tf.variable_scope(name):</span><br><span class="line">            #根据命名空间name做全连接计算</span><br><span class="line">            shape = x.get_shape().as_list()</span><br><span class="line">            print(&quot;fc_layer shape&quot;, shape)</span><br><span class="line">            dim = 1</span><br><span class="line">            #计算第1,2,3维度下的元素总和</span><br><span class="line">            for i in shape[1:]:</span><br><span class="line">                dim *= i</span><br><span class="line">            #改变特征图的形状，也就是将得到的多维特征做拉伸操作，只在进入第六层全连接层做该操作</span><br><span class="line">            x = tf.reshape(x, [-1, dim])</span><br><span class="line"></span><br><span class="line">            #读出参数</span><br><span class="line">            w = self.get_fc_weight(name)</span><br><span class="line">            b = self.get_bias(name)</span><br><span class="line">            #对该层输入做加权求和，再加上偏置</span><br><span class="line">            result  = tf.nn.bias_add(tf.matmul(x,w), b)</span><br><span class="line">            return result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def forward(self, images):</span><br><span class="line">        #plt.figure(&quot;process pictures&quot;)</span><br><span class="line">        print(&quot;bulid model started&quot;)</span><br><span class="line">        #获取前向传播的开始时间</span><br><span class="line">        start_time = time.time()</span><br><span class="line">        #逐像素乘以255.0(依据原论文所叙述的初始化步骤)</span><br><span class="line">        rgb_scaled = images * 255.0</span><br><span class="line"></span><br><span class="line">        #从GRB转换色彩通道到BGR，也可使用cv中的GRBtoBGR</span><br><span class="line">        red, green, blue = tf.split(rgb_scaled, 3, 3)</span><br><span class="line"></span><br><span class="line">        #断言，用来判断每个操作后的维度变化是否和预期一致</span><br><span class="line">        assert red.get_shape().as_list()[1:] == [224, 224, 1]</span><br><span class="line">        assert green.get_shape().as_list()[1:] == [224, 224, 1]</span><br><span class="line">        assert blue.get_shape().as_list()[1:] == [224, 224, 1]</span><br><span class="line"></span><br><span class="line">        #逐样本减去每个通道的像素平均值，这种操作可以移除图像的平均亮度值，该方法常用在灰度图像上</span><br><span class="line">        bgr = tf.concat([</span><br><span class="line">            blue - VGG_MEAN[0],</span><br><span class="line">            green - VGG_MEAN[1],</span><br><span class="line">            red - VGG_MEAN[2]],</span><br><span class="line">            3)</span><br><span class="line">        assert bgr.get_shape().as_list()[1:] == [224, 224, 3]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        #接下来构建VGG的16层网络(包含5段卷积，3层全连接)， 并逐层根据命名空间读取网络参数</span><br><span class="line">        #第一段卷积，含有两个卷积层，后面接最大池化层，用来缩小图片尺寸</span><br><span class="line">        self.conv1_1 = self.conv_layer(bgr, &quot;conv1_1&quot;)</span><br><span class="line"></span><br><span class="line">        #传入命名空间的name，用来获取该层的卷积核和偏置，并做卷积运算，最后返回经过激活函数后的值</span><br><span class="line">        self.conv1_2 = self.conv_layer(self.conv1_1, &quot;conv1_2&quot;)</span><br><span class="line"></span><br><span class="line">        #根据传入的pooling名字对该层做相应的池化操作</span><br><span class="line">        self.pool1 = self.max_pool_2x2(self.conv1_2, &quot;pool1&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        #下面的前向传播过程与第一段同理</span><br><span class="line">        # 第二段卷积，同样包含两个卷积层，一个最大池化层</span><br><span class="line">        self.conv2_1 = self.conv_layer(self.pool1, &quot;conv2_1&quot;)</span><br><span class="line">        self.conv2_2 = self.conv_layer(self.conv2_1, &quot;conv2_2&quot;)</span><br><span class="line">        self.pool2 = self.max_pool_2x2(self.conv2_2, &quot;pool2&quot;)</span><br><span class="line"></span><br><span class="line">        #第三段卷积，包含三个卷积层，一个最大池化层</span><br><span class="line">        self.conv3_1 = self.conv_layer(self.pool2, &quot;conv3_1&quot;)</span><br><span class="line">        self.conv3_2 = self.conv_layer(self.conv3_1, &quot;conv3_2&quot;)</span><br><span class="line">        self.conv3_3 = self.conv_layer(self.conv3_2, &quot;conv3_3&quot;)</span><br><span class="line">        self.pool3 = self.max_pool_2x2(self.conv3_3, &quot;pool3&quot;)</span><br><span class="line"></span><br><span class="line">        #第四段卷积，包含三个卷积层，一个最大池化层</span><br><span class="line">        self.conv4_1 = self.conv_layer(self.pool3, &quot;conv4_1&quot;)</span><br><span class="line">        self.conv4_2 = self.conv_layer(self.conv4_1, &quot;conv4_2&quot;)</span><br><span class="line">        self.conv4_3 = self.conv_layer(self.conv4_2, &quot;conv4_3&quot;)</span><br><span class="line">        self.pool4 = self.max_pool_2x2(self.conv4_3, &quot;pool4&quot;)</span><br><span class="line"></span><br><span class="line">        #第五段卷积，包含三个卷积层，一个最大池化层</span><br><span class="line">        self.conv5_1 = self.conv_layer(self.pool4, &quot;conv5_1&quot;)</span><br><span class="line">        self.conv5_2 = self.conv_layer(self.conv5_1, &quot;conv5_2&quot;)</span><br><span class="line">        self.conv5_3 = self.conv_layer(self.conv5_2, &quot;conv5_3&quot;)</span><br><span class="line">        self.pool5 = self.max_pool_2x2(self.conv5_3, &quot;pool5&quot;)</span><br><span class="line"></span><br><span class="line">        #第六层全连接</span><br><span class="line">        #根据命名空间name做加权求和运算</span><br><span class="line">        self.fc6 = self.fc_layer(self.pool5, &quot;fc6&quot;)</span><br><span class="line">        #4096是该层输出后的长度</span><br><span class="line">        assert self.fc6.get_shape().as_list()[1:] == [4096]</span><br><span class="line">        #经过relu激活函数</span><br><span class="line">        self.relu6 = tf.nn.relu(self.fc6)</span><br><span class="line"></span><br><span class="line">        #第七层全连接，同上</span><br><span class="line">        self.fc7 = self.fc_layer(self.relu6, &quot;fc7&quot;)</span><br><span class="line">        self.relu7 = tf.nn.relu(self.fc7)</span><br><span class="line"></span><br><span class="line">        #第八层全连接</span><br><span class="line">        self.fc8 = self.fc_layer(self.relu7, &quot;fc8&quot;)</span><br><span class="line">        #经过最后一层的全连接后，再做softmax分类，得到属于各类别的概率</span><br><span class="line"></span><br><span class="line">        self.prob = tf.nn.softmax(self.fc8, name = &quot;prob&quot;)</span><br><span class="line"></span><br><span class="line">        #得到前向传播的结束时间</span><br><span class="line">        end_time = time.time()</span><br><span class="line">        print(&quot;time consuming:%f&quot;%(end_time - start_time))</span><br><span class="line"></span><br><span class="line">        #清空本次读取到的模型参数字典</span><br><span class="line">        self.data_dict = None</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>utils.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">#coding:utf-8</span><br><span class="line"></span><br><span class="line">from skimage import io, transform</span><br><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import tensorflow as tf</span><br><span class="line">from pylab import mpl</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#正常显示中文标签</span><br><span class="line">mpl.rcParams[&apos;font.sans-serif&apos;]=[&apos;SimHei&apos;]</span><br><span class="line">#正常显示正负号</span><br><span class="line">mpl.rcParams[&apos;axes.unicode_minus&apos;] = False</span><br><span class="line"></span><br><span class="line">def load_image(path):</span><br><span class="line">    fig = plt.figure(&quot;Center and Resize&quot;)</span><br><span class="line">    #根据传入的路径读入图片</span><br><span class="line">    img = io.imread(path)</span><br><span class="line">    #将像素归一化到[0,1]</span><br><span class="line">    img = img / 255.0</span><br><span class="line"></span><br><span class="line">    #131表示：将该画布分为一行三列，将第一个画布赋给ax0</span><br><span class="line">    ax0 = fig.add_subplot(131)</span><br><span class="line">    #添加子标签</span><br><span class="line">    ax0.set_xlabel(u&apos;Original Picture&apos;)</span><br><span class="line">    #在此部分画布中展示img图片</span><br><span class="line">    ax0.imshow(img)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    #找到图像的最短边</span><br><span class="line">    short_edge = min(img.shape[:2])</span><br><span class="line">    #把图像的x和h分别减去最短边，并求平均</span><br><span class="line">    y = (img.shape[0] - short_edge)//2</span><br><span class="line">    x = (img.shape[1] - short_edge)//2</span><br><span class="line">    #取出切分出的中心图像</span><br><span class="line">    crop_img = img[y:y+short_edge, x:x+short_edge]</span><br><span class="line">    print(crop_img)</span><br><span class="line"></span><br><span class="line">    #把画布分为1行3列，并将第2个画布赋给ax1</span><br><span class="line">    ax1 = fig.add_subplot(132)</span><br><span class="line">    #添加子标签</span><br><span class="line">    ax1.set_xlabel(u&apos;Center Picture&apos;)</span><br><span class="line">    ax1.imshow(crop_img)</span><br><span class="line"></span><br><span class="line">    #resize 成固定的imag_size</span><br><span class="line">    re_img = transform.resize(crop_img, (224,224))</span><br><span class="line"></span><br><span class="line">    ax2 = fig.add_subplot(133)</span><br><span class="line">    ax2.set_xlabel(u&apos;Resize Picture&apos;)</span><br><span class="line">    ax2.imshow(re_img)</span><br><span class="line">    img_ready = re_img.reshape((1,224,224,3))</span><br><span class="line">    return img_ready</span><br><span class="line"></span><br><span class="line">def percent(value):</span><br><span class="line">    return &apos;%.2f%%&apos;%(value*100)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><p>链接：<a href="https://pan.baidu.com/s/1WWNoY-ahajm2qkcCeNNgqg" target="_blank" rel="noopener">https://pan.baidu.com/s/1WWNoY-ahajm2qkcCeNNgqg</a><br>密码：52b2</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>分享是一种快乐，请随意</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Brandon 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/人工智能/" rel="tag"># 人工智能</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/23/Tensorflow笔记四/" rel="next" title="Tensorflow笔记四">
+                <i class="fa fa-chevron-left"></i> Tensorflow笔记四
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/Avata1.png"
+      alt="Brandon">
+  <p class="site-author-name" itemprop="name">Brandon</p>
+  <div class="site-description motion-element" itemprop="description">编程、经验、感悟、读后感的一点记录和分享</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/brandonvno" title="GitHub &rarr; https://github.com/brandonvno" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.taptap.com/app/63844" title="https://www.taptap.com/app/63844" rel="noopener" target="_blank">行界：重构</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VGG-net实现图片识别-千分类"><span class="nav-number">2.</span> <span class="nav-text">VGG net实现图片识别(千分类)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关资料"><span class="nav-number">2.1.</span> <span class="nav-text">相关资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些方法的说明"><span class="nav-number">2.2.</span> <span class="nav-text">一些方法的说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源代码"><span class="nav-number">3.</span> <span class="nav-text">源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">4.</span> <span class="nav-text">资源</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Brandon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '37854a8b3b718ee36cda',
+    clientSecret: '2c841db056b110a0454e394cd9993cb4026e1c13',
+    repo: 'brandonvno.github.io',
+    owner: 'brandonvno',
+    admin: ['brandonvno'],
+    id: md5(location.pathname),
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":200,"height":400,"position":"right","hOffset":0,"vOffset":-20},"react":{"opacityDefault":0.5,"opacityOnHover":0.5,"opacity":0.7},"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

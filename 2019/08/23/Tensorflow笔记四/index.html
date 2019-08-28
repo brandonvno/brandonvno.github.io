@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第七节  卷积神经网络 要点记录 版本：python(3.6.6)， tensorflow(1.3.0)  卷积神经网络相关概念和原理： 全连接NN：每个神经元与前后相邻层的每一个神经元都有连接关系，输入是特征，输出为预测结果。参数个数：\(\sum(前层 x 后层 + 后层)\) 大多数时候，我们需要对彩色图片，也就是红绿蓝三">
+<meta name="keywords" content="人工智能,深度学习,Tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow笔记四">
+<meta property="og:url" content="https://brandonvno.github.io/2019/08/23/Tensorflow笔记四/index.html">
+<meta property="og:site_name" content="Brandon电台">
+<meta property="og:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第七节  卷积神经网络 要点记录 版本：python(3.6.6)， tensorflow(1.3.0)  卷积神经网络相关概念和原理： 全连接NN：每个神经元与前后相邻层的每一个神经元都有连接关系，输入是特征，输出为预测结果。参数个数：\(\sum(前层 x 后层 + 后层)\) 大多数时候，我们需要对彩色图片，也就是红绿蓝三">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image13.png">
+<meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image14.gif">
+<meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image15.png">
+<meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image16.png">
+<meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image17.png">
+<meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image18.png">
+<meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image19.png">
+<meta property="og:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image20.png">
+<meta property="og:updated_time" content="2019-08-27T12:41:32.568Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorflow笔记四">
+<meta name="twitter:description" content="概述 mooc 北京大学曹健老师课程：tensorflow笔记 第七节  卷积神经网络 要点记录 版本：python(3.6.6)， tensorflow(1.3.0)  卷积神经网络相关概念和原理： 全连接NN：每个神经元与前后相邻层的每一个神经元都有连接关系，输入是特征，输出为预测结果。参数个数：\(\sum(前层 x 后层 + 后层)\) 大多数时候，我们需要对彩色图片，也就是红绿蓝三">
+<meta name="twitter:image" content="https://brandonvno.github.io/uploads/tensorflow_notes/image13.png">
+  <link rel="alternate" href="/atom.xml" title="Brandon电台" type="application/atom+xml">
+  <link rel="canonical" href="https://brandonvno.github.io/2019/08/23/Tensorflow笔记四/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Tensorflow笔记四 | Brandon电台</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ac76ceae447ceffbc8058af5886fbe8d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Brandon电台</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">好记性不如烂笔头</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://brandonvno.github.io/2019/08/23/Tensorflow笔记四/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Brandon">
+      <meta itemprop="description" content="编程、经验、感悟、读后感的一点记录和分享">
+      <meta itemprop="image" content="/uploads/Avata1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Brandon电台">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Tensorflow笔记四
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-23 16:02:25" itemprop="dateCreated datePublished" datetime="2019-08-23T16:02:25+08:00">2019-08-23</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-27 20:41:32" itemprop="dateModified" datetime="2019-08-27T20:41:32+08:00">2019-08-27</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/" itemprop="url" rel="index"><span itemprop="name">人工智能</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/人工智能/机器学习/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon"
+              >
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p> mooc 北京大学曹健老师课程：tensorflow笔记 第七节  卷积神经网络 要点记录<br> 版本：python(3.6.6)， tensorflow(1.3.0)</p>
+<hr>
+<h2 id="卷积神经网络相关概念和原理："><a href="#卷积神经网络相关概念和原理：" class="headerlink" title="卷积神经网络相关概念和原理："></a>卷积神经网络相关概念和原理：</h2><ul>
+<li><p>全连接NN：每个神经元与前后相邻层的每一个神经元都有连接关系，输入是特征，输出为预测结果。<br>参数个数：\(\sum(前层 x 后层 + 后层)\)</p>
+<p>大多数时候，我们需要对彩色图片，也就是红绿蓝三通道图片进行处理，相比手写数字识别示例中的单通道有更多参数需要优化，而待优化的参数过多会导致模型过拟合。</p>
+<p>所以实际应用中会先对原始图像进行特征提取，再把提取到的特征喂给全连接网络。</p>
+</li>
+<li><p>卷积(convolutional)<br>卷积就是一种有效提取图像特征的方法。<br>一般会用一个正方形的卷积核，遍历图片上的每个点。图片区域内，相对应的每一个像素值，乘以卷积核内相对应点的权重，求和，再加上偏置。<br>输出图片边长 = (输入图片边长 - 卷积核长 +1 ) / 步长<br>如上例：边长= (5-3 +1)/1 = 3<br>单次计算过程如下图所示：<br><img src="/uploads/tensorflow_notes/image13.png" alt></p>
+<p>滑动计算过程如下图所示：<br><img src="/uploads/tensorflow_notes/image14.gif" alt></p>
+<p>有时候可以在输入图片外围一圈进行全零填充(padding)， 使得输出图片边长跟输入图片边长相等。<br><img src="/uploads/tensorflow_notes/image15.png" alt></p>
+<p>tensorflow中计算卷积(三通道示例)：<br><img src="/uploads/tensorflow_notes/image16.png" alt></p>
+</li>
+</ul>
+<ul>
+<li><p>池化(Pooling)<br>使用卷积处理的特征数量有时候仍然巨大，因此需要进一步减少特征数量。<br>池化用于减少特征数量，池化分为最大值池化和均值池化。<br>最大值池化可提取图片纹理，均值池化可保留背景特征。<br>下图是最大值池化和均值池化的图示：<br><img src="/uploads/tensorflow_notes/image17.png" alt></p>
+<p>tensorflow中计算池化：<br><img src="/uploads/tensorflow_notes/image18.png" alt></p>
+</li>
+<li><p>舍弃(Dropout)<br>有时候为了进一步简化计算，在神经网络<strong>训练</strong>过程中，将一部分神经元按照一定概率从神经网络中舍弃。使用时被舍弃的神经元恢复链接。</p>
+<p>tensorflow中设置dropout<br><code>tf.nn.dropout(上层输出，暂时舍弃的概率)</code><br>训练过程中，指定概率的神经元被随机置零，置零的神经元不参与当前轮的参数优化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if train:</span><br><span class="line">   输出 = tf.nn.dropout(上层输出， 暂时舍弃的概率)</span><br></pre></td></tr></table></figure>
+
+<p>实际应用中常常在前向前向传播构建神经网络时使用dropout来减小过拟合，来加快模型的训练速度。dropout一般在全连接网络中使用</p>
+</li>
+<li><p>卷积神经网络：借助卷积核(kernel)提取特征后，送入全连接网络。<br>CNN模型主要模块：<br>1.卷积(Convolutional)<br>2.激活(Activation)<br>3.池化(Pooling)<br>4.全连接(FC)<br>其中1-3是高层次抽象特征，精简特征点的过程</p>
+</li>
+</ul>
+<p> CNN模型的发展史：<br> Lenet-5 -&gt; AlexNet -&gt; VGGNet -&gt; GoogleNet -&gt; ResNet -&gt; …</p>
+<hr>
+<h2 id="Lenet-5模型实现手写数字识别"><a href="#Lenet-5模型实现手写数字识别" class="headerlink" title="Lenet-5模型实现手写数字识别"></a>Lenet-5模型实现手写数字识别</h2><p>原始模型：<br><img src="/uploads/tensorflow_notes/image19.png" alt></p>
+<p>对应mnist数据集后修改的模型：<br><img src="/uploads/tensorflow_notes/image20.png" alt></p>
+<p>使用lenet-5模型实现手写数字识别代码示例：</p>
+<p>mnist_lenet5_forward.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line">import tensorflow as tf</span><br><span class="line">IMAGE_SIZE = 28</span><br><span class="line">NUM_CHANNELS = 1</span><br><span class="line">CONV1_SIZE = 5</span><br><span class="line">CONV1_KERNEL_NUM = 32</span><br><span class="line">CONV2_SIZE  = 5</span><br><span class="line">CONV2_KERNEL_NUM = 64</span><br><span class="line">FC_SIZE = 512   #NN第一层网络有512个神经元</span><br><span class="line">OUTPUT_NODE = 10    #NN第二层网络有10个神经元，对应10分类输出</span><br><span class="line"></span><br><span class="line">def get_weight(shape, regularizer):</span><br><span class="line">    w = tf.Variable(tf.truncated_normal(shape, stddev = 0.1))</span><br><span class="line">    if regularizer != None:</span><br><span class="line">        tf.add_to_collection(&apos;losses&apos;, tf.contrib.layers.l2_regularizer(regularizer)(w))</span><br><span class="line">    return w</span><br><span class="line"></span><br><span class="line">def get_bias(shape):</span><br><span class="line">    b = tf.Variable(tf.zeros(shape))</span><br><span class="line">    return b</span><br><span class="line"></span><br><span class="line">def conv2d(x, w):</span><br><span class="line">    #x是输入描述，一维张量的四个参数分别是batch_size， 行分辨率，列分辨率，通道数</span><br><span class="line">    #w是卷积核描述，一维张量四个参数分别是行分辨率，列分辨率，通道数，核个数</span><br><span class="line">    #strides是核滑动步长，一维张量第二个和第三个参数代表行和列步长，其他两个参数固定</span><br><span class="line">    #padding零填充，&apos;SAME&apos;代表使用0填充</span><br><span class="line">    return tf.nn.conv2d(x, w, strides = [1, 1, 1, 1], padding = &apos;SAME&apos;)</span><br><span class="line"></span><br><span class="line">def max_pool_2x2(x):</span><br><span class="line">    #x是输入描述，同上</span><br><span class="line">    #ksize是池化核描述，第1和第4个参数固定为1，第2第3个参数代表大小</span><br><span class="line">    #strides是滑动步长描述，同上</span><br><span class="line">    #padding零填充，同上</span><br><span class="line">    return tf.nn.max_pool(x, ksize=[1,2,2,1], strides = [1,2,2,1], padding = &apos;SAME&apos;)</span><br><span class="line"></span><br><span class="line">def forward(x, train, regularizer):</span><br><span class="line">    conv1_w = get_weight([CONV1_SIZE, CONV1_SIZE, NUM_CHANNELS, CONV1_KERNEL_NUM], regularizer)</span><br><span class="line">    conv1_b = get_bias([CONV1_KERNEL_NUM])</span><br><span class="line">    conv1 = conv2d(x, conv1_w)</span><br><span class="line">    relu1 = tf.nn.relu(tf.nn.bias_add(conv1, conv1_b))</span><br><span class="line">    pool1 = max_pool_2x2(relu1)</span><br><span class="line"></span><br><span class="line">    conv2_w = get_weight([CONV2_SIZE, CONV2_SIZE, CONV1_KERNEL_NUM, CONV2_KERNEL_NUM], regularizer)</span><br><span class="line">    conv2_b = get_bias([CONV2_KERNEL_NUM])</span><br><span class="line">    conv2 = conv2d(pool1, conv2_w)</span><br><span class="line">    relu2 = tf.nn.relu(tf.nn.bias_add(conv2, conv2_b))</span><br><span class="line">    pool2 = max_pool_2x2(relu2)</span><br><span class="line"></span><br><span class="line">    pool_shape = pool2.get_shape().as_list()</span><br><span class="line">    #计算4维张量每个第2,3,4维元素总和，即长度宽度深度乘积,得到所有特征点的个数</span><br><span class="line">    nodes = pool_shape[1] * pool_shape[2] * pool_shape[3]</span><br><span class="line">    #reshape为2维张量，第一维不变(为batch)，第二维元素数改为nodes</span><br><span class="line">    reshaped = tf.reshape(pool2, [pool_shape[0], nodes])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    fc1_w = get_weight([nodes, FC_SIZE], regularizer)</span><br><span class="line">    fc1_b = get_bias([FC_SIZE])</span><br><span class="line">    fc1 = tf.nn.relu(tf.matmul(reshaped, fc1_w) + fc1_b)</span><br><span class="line">    if train: fc1 = tf.nn.dropout(fc1, 0.5)</span><br><span class="line"></span><br><span class="line">    fc2_w = get_weight([FC_SIZE, OUTPUT_NODE], regularizer)</span><br><span class="line">    fc2_b = get_bias([OUTPUT_NODE])</span><br><span class="line">    y = tf.matmul(fc1, fc2_w) + fc2_b</span><br><span class="line">    return y</span><br></pre></td></tr></table></figure>
+
+<p>mnist_lenet5_backward.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line">import tensorflow as tf</span><br><span class="line">from tensorflow.examples.tutorials.mnist import input_data</span><br><span class="line">import mnist_lenet5_forward as fw</span><br><span class="line">import os</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">BATCH_SIZE = 100</span><br><span class="line">LEARNING_RATE_BASE = 0.005</span><br><span class="line">LEARNING_RATE_DECAY = 0.99</span><br><span class="line">REGULARIZER = 0.0001</span><br><span class="line">STEPS = 50000</span><br><span class="line">MOVING_AVERAGE_DECAY = 0.99</span><br><span class="line">MODEL_SAVE_PATH = &quot;./model/&quot;</span><br><span class="line">MODEL_NAME = &quot;mnist_model&quot;</span><br><span class="line"></span><br><span class="line">def backward(mnist):</span><br><span class="line">    x = tf.placeholder(tf.float32, [</span><br><span class="line">        BATCH_SIZE,</span><br><span class="line">        fw.IMAGE_SIZE,</span><br><span class="line">        fw.IMAGE_SIZE,</span><br><span class="line">        fw.NUM_CHANNELS</span><br><span class="line">        ])</span><br><span class="line">    y_ = tf.placeholder(tf.float32, [None, fw.OUTPUT_NODE])</span><br><span class="line">    y = fw.forward(x, True, REGULARIZER)</span><br><span class="line">    global_step = tf.Variable(0, trainable = False)</span><br><span class="line"></span><br><span class="line">    ce = tf.nn.sparse_softmax_cross_entropy_with_logits(logits = y, labels = tf.argmax(y_, 1))</span><br><span class="line">    cem = tf.reduce_mean(ce)</span><br><span class="line">    loss = cem + tf.add_n(tf.get_collection(&apos;losses&apos;))</span><br><span class="line"></span><br><span class="line">    learning_rate = tf.train.exponential_decay(</span><br><span class="line">        LEARNING_RATE_BASE,</span><br><span class="line">        global_step,</span><br><span class="line">        mnist.train.num_examples / BATCH_SIZE,</span><br><span class="line">        LEARNING_RATE_DECAY,</span><br><span class="line">        staircase = True</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step = global_step)</span><br><span class="line"></span><br><span class="line">    ema = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, global_step)</span><br><span class="line">    ema_op = ema.apply(tf.trainable_variables())</span><br><span class="line">    with tf.control_dependencies([train_step, ema_op]):</span><br><span class="line">        train_op = tf.no_op(name = &apos;train&apos;)</span><br><span class="line">    saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line">    with tf.Session() as sess:</span><br><span class="line">        init_op = tf.global_variables_initializer()</span><br><span class="line">        sess.run(init_op)</span><br><span class="line"></span><br><span class="line">        ckpt = tf.train.get_checkpoint_state(MODEL_SAVE_PATH)</span><br><span class="line">        if ckpt and ckpt.model_checkpoint_path:</span><br><span class="line">            saver.restore(sess, ckpt.model_checkpoint_path)</span><br><span class="line"></span><br><span class="line">        for i in range(STEPS):</span><br><span class="line">            xs, ys = mnist.train.next_batch(BATCH_SIZE)</span><br><span class="line">            reshaped_xs = np.reshape(xs, (</span><br><span class="line">                BATCH_SIZE,</span><br><span class="line">                fw.IMAGE_SIZE,</span><br><span class="line">                fw.IMAGE_SIZE,</span><br><span class="line">                fw.NUM_CHANNELS</span><br><span class="line">                ))</span><br><span class="line">            _, loss_value, step = sess.run([train_op, loss, global_step], feed_dict=&#123;x:reshaped_xs, y_:ys&#125;)</span><br><span class="line">            if i % 100 == 0:</span><br><span class="line">                print(&quot;After %d training step(s), loss on training batch is %g&quot; %(step, loss_value))</span><br><span class="line">                saver.save(sess, os.path.join(MODEL_SAVE_PATH, MODEL_NAME), global_step = global_step)</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    mnist = input_data.read_data_sets(&quot;./data/&quot;, one_hot = True)</span><br><span class="line">    backward(mnist)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>mnist_lenet5_test.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf-8</span><br><span class="line">import time</span><br><span class="line">import tensorflow as tf</span><br><span class="line">from tensorflow.examples.tutorials.mnist import input_data</span><br><span class="line">import mnist_lenet5_forward as fw</span><br><span class="line">import mnist_lenet5_backward as bw</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">TEST_INTERVAL_SECS = 5</span><br><span class="line"></span><br><span class="line">def test(mnist):</span><br><span class="line">    with tf.Graph().as_default() as g:</span><br><span class="line">        x = tf.placeholder(tf.float32, [</span><br><span class="line">            mnist.test.num_examples,</span><br><span class="line">            fw.IMAGE_SIZE,</span><br><span class="line">            fw.IMAGE_SIZE,</span><br><span class="line">            fw.NUM_CHANNELS</span><br><span class="line">            ])</span><br><span class="line">        y_ = tf.placeholder(tf.float32, [None, fw.OUTPUT_NODE])</span><br><span class="line">        y = fw.forward(x, False, None)</span><br><span class="line"></span><br><span class="line">        ema = tf.train.ExponentialMovingAverage(bw.MOVING_AVERAGE_DECAY)</span><br><span class="line">        ema_restore = ema.variables_to_restore()</span><br><span class="line">        saver = tf.train.Saver(ema_restore)</span><br><span class="line"></span><br><span class="line">        correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))</span><br><span class="line">        accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line"></span><br><span class="line">        while True:</span><br><span class="line">            with tf.Session() as sess:</span><br><span class="line">                ckpt = tf.train.get_checkpoint_state(bw.MODEL_SAVE_PATH)</span><br><span class="line">                if ckpt and ckpt.model_checkpoint_path:</span><br><span class="line">                    saver.restore(sess, ckpt.model_checkpoint_path)</span><br><span class="line"></span><br><span class="line">                    global_step = ckpt.model_checkpoint_path.split(&apos;/&apos;)[-1].split(&apos;-&apos;)[-1]</span><br><span class="line">                    reshaped_x = np.reshape(mnist.test.images,(</span><br><span class="line">                        mnist.test.num_examples,</span><br><span class="line">                        fw.IMAGE_SIZE,</span><br><span class="line">                        fw.IMAGE_SIZE,</span><br><span class="line">                        fw.NUM_CHANNELS</span><br><span class="line">                        ))</span><br><span class="line">                    accuracy_score = sess.run(accuracy, feed_dict=&#123;x:reshaped_x, y_:mnist.test.labels&#125;)</span><br><span class="line">                    print(&quot;after %s training step(s), test accuracy = %g&quot; %(global_step, accuracy_score))</span><br><span class="line">                else:</span><br><span class="line">                    print(&quot;No checkpoint file found&quot;)</span><br><span class="line">                    return</span><br><span class="line">            time.sleep(TEST_INTERVAL_SECS)</span><br><span class="line">def main():</span><br><span class="line">    mnist = input_data.read_data_sets(&quot;./data/&quot;, one_hot=True)</span><br><span class="line">    test(mnist)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>如果运行过程中出现了内存分配的异常，应适当减小BATCH</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>分享是一种快乐，请随意</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Brandon 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/人工智能/" rel="tag"># 人工智能</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/20/Tensorflow笔记三/" rel="next" title="Tensorflow笔记三">
+                <i class="fa fa-chevron-left"></i> Tensorflow笔记三
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/08/27/Tensorflow笔记五/" rel="prev" title="Tensorflow笔记五">
+                Tensorflow笔记五 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/Avata1.png"
+      alt="Brandon">
+  <p class="site-author-name" itemprop="name">Brandon</p>
+  <div class="site-description motion-element" itemprop="description">编程、经验、感悟、读后感的一点记录和分享</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/brandonvno" title="GitHub &rarr; https://github.com/brandonvno" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.taptap.com/app/63844" title="https://www.taptap.com/app/63844" rel="noopener" target="_blank">行界：重构</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积神经网络相关概念和原理："><span class="nav-number">2.</span> <span class="nav-text">卷积神经网络相关概念和原理：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lenet-5模型实现手写数字识别"><span class="nav-number">3.</span> <span class="nav-text">Lenet-5模型实现手写数字识别</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Brandon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '37854a8b3b718ee36cda',
+    clientSecret: '2c841db056b110a0454e394cd9993cb4026e1c13',
+    repo: 'brandonvno.github.io',
+    owner: 'brandonvno',
+    admin: ['brandonvno'],
+    id: md5(location.pathname),
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":200,"height":400,"position":"right","hOffset":0,"vOffset":-20},"react":{"opacityDefault":0.5,"opacityOnHover":0.5,"opacity":0.7},"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
