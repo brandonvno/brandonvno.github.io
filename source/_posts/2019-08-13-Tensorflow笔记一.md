@@ -16,6 +16,7 @@ categories:
 
 ## 概述
  mooc 北京大学曹健老师课程：tensorflow笔记 第三节 Tensorflow框架 要点记录
+ 版本：python(3.6.6)， tensorflow(1.3.0)
 
 ---
 
