@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://brandonvno.github.io/"/>
-  <updated>2019-08-28T13:31:03.194Z</updated>
+  <updated>2019-09-09T14:11:01.744Z</updated>
   <id>https://brandonvno.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Qt学习资源和踩到的坑</title>
+    <link href="https://brandonvno.github.io/2019/09/02/Qt%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E5%92%8C%E8%B8%A9%E5%88%B0%E7%9A%84%E5%9D%91/"/>
+    <id>https://brandonvno.github.io/2019/09/02/Qt学习资源和踩到的坑/</id>
+    <published>2019-09-02T01:32:43.000Z</published>
+    <updated>2019-09-09T14:11:01.744Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Qt5-8-手把手教程&quot;&gt;&lt;a href=&quot;#Qt5-8-手把手教程&quot; class=&quot;headerlink&quot; title=&quot;Qt5.8 手把手教程&quot;&gt;&lt;/a&gt;Qt5.8 手把手教程&lt;/h2&gt;&lt;p&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="资源" scheme="https://brandonvno.github.io/categories/%E8%B5%84%E6%BA%90/"/>
+    
+      <category term="Qt" scheme="https://brandonvno.github.io/categories/%E8%B5%84%E6%BA%90/Qt/"/>
+    
+    
+      <category term="资源" scheme="https://brandonvno.github.io/tags/%E8%B5%84%E6%BA%90/"/>
+    
+      <category term="Qt" scheme="https://brandonvno.github.io/tags/Qt/"/>
+    
+  </entry>
   
   <entry>
     <title>Tensorflow笔记五</title>

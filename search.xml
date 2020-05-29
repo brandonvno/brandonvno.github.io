@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Qt学习资源和踩到的坑</title>
+      <link href="/2019/09/02/Qt%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E5%92%8C%E8%B8%A9%E5%88%B0%E7%9A%84%E5%9D%91/"/>
+      <url>/2019/09/02/Qt%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E5%92%8C%E8%B8%A9%E5%88%B0%E7%9A%84%E5%9D%91/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Qt5-8-手把手教程"><a href="#Qt5-8-手把手教程" class="headerlink" title="Qt5.8 手把手教程"></a>Qt5.8 手把手教程</h2><p><a href="https://zhuanlan.zhihu.com/c_119081535" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/c_119081535</a></p><p><a href="https://blog.51cto.com/9291927/2138876" target="_blank" rel="noopener">https://blog.51cto.com/9291927/2138876</a></p><hr><h2 id="Qt-文档"><a href="#Qt-文档" class="headerlink" title="Qt 文档"></a>Qt 文档</h2><p>5.8文档<br><a href="https://doc.qt.io/archives/qt-5.8/index.html" target="_blank" rel="noopener">https://doc.qt.io/archives/qt-5.8/index.html</a></p><hr><h2 id="Qt5-9-C-开发指南及实例"><a href="#Qt5-9-C-开发指南及实例" class="headerlink" title="Qt5.9 C++开发指南及实例"></a>Qt5.9 C++开发指南及实例</h2><p>原贴：<a href="https://www.52pojie.cn/thread-966975-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-966975-1-1.html</a><br>链接：<a href="https://pan.baidu.com/s/1X1h4BClbDEo56or6T9aayQ" target="_blank" rel="noopener">https://pan.baidu.com/s/1X1h4BClbDEo56or6T9aayQ</a><br>提取码：r7l0<br>有经济能力还是支持一下正版</p><p>最新示例代码：<br><a href="https://www.epubit.com/bookDetails?id=N25171" target="_blank" rel="noopener">https://www.epubit.com/bookDetails?id=N25171</a></p><hr><h2 id="一些小经验和踩到的坑-随时记录，可能比较杂乱"><a href="#一些小经验和踩到的坑-随时记录，可能比较杂乱" class="headerlink" title="一些小经验和踩到的坑(随时记录，可能比较杂乱)"></a>一些小经验和踩到的坑(随时记录，可能比较杂乱)</h2><ul><li><p>Qt Creator项目移动后，debug和release路径记得重新设置一下</p></li><li><p>Qt 信号与槽绑定的几种方式<br>方法一(Qt4和Qt5都可以用)：<br>connect()</p></li><li><p>QThread心得</p></li></ul><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 资源 </category>
+          
+          <category> Qt </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 资源 </tag>
+            
+            <tag> Qt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Tensorflow笔记五</title>
       <link href="/2019/08/27/Tensorflow%E7%AC%94%E8%AE%B0%E4%BA%94/"/>
       <url>/2019/08/27/Tensorflow%E7%AC%94%E8%AE%B0%E4%BA%94/</url>
